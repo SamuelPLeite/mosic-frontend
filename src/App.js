@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import Users from "./users/containers/Users"
@@ -7,21 +7,45 @@ import PostMusic from './music/containers/PostMusic';
 import UserMusic from './music/containers/UserMusic';
 import UpdateMusic from './music/containers/UpdateMusic';
 import Auth from './users/containers/Auth';
+import { UserContext } from './shared/context/user-context';
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const login = useCallback(() => { setIsLoggedIn(true) }, [])
+
+  const logout = useCallback(() => { setIsLoggedIn(false) }, [])
+
+  let routes
+
+  if (isLoggedIn) {
+    routes = <>
+      <Route path="/users/:uid/music" element={<UserMusic />} />
+      <Route path="/music/new" element={<PostMusic />} />
+      <Route path="/music/:mId" element={<UpdateMusic />} />
+      <Route path="/" element={<Users />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </>
+  } else {
+    routes = <>
+      <Route path="/users/:uid/music" element={<UserMusic />} />
+      <Route path="/login" element={<Auth />} />
+      <Route path="/" element={<Users />} />
+      <Route path="*" element={<Navigate to="/login" />} />
+    </>
+  }
+
   return (
-    <Router>
-      <MainNavigation />
-      <main>
-        <Routes>
-          <Route path="/users/:uid/music" element={<UserMusic />} exact />
-          <Route path="/" element={<Users />} />
-          <Route path="/music/new" element={<PostMusic />} />
-          <Route path="/music/:mId" element={<UpdateMusic />} />
-          <Route path="/login" element={<Auth />} />
-        </Routes>
-      </main>
-    </Router>
+    <UserContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}>
+      <Router>
+        <MainNavigation />
+        <main>
+          <Routes>
+            {routes}
+          </Routes>
+        </main>
+      </Router>
+    </UserContext.Provider>
   )
 }
 

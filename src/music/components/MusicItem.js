@@ -1,14 +1,16 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import { Link } from 'react-router-dom';
 
 import Card from "../../shared/components/UIElements/Card"
 import Modal from "../../shared/components/UIElements/Modal"
-import './MusicItem.css'
 import Button from "../../shared/components/Form/Button";
+import { UserContext } from "../../shared/context/user-context";
+import './MusicItem.css'
 
 // title, artist, image, isSong, description, id, creatorId
 
 const MusicItem = ({ item }) => {
+  const auth = useContext(UserContext)
   const [showDelete, setShowDelete] = useState(false)
 
   const handleShowDelete = () => {
@@ -52,8 +54,8 @@ const MusicItem = ({ item }) => {
         <ul className="music-item__actions">
           <li className="left"><Link>RESPIN IT</Link></li>
           <li><Link>LIKE</Link></li>
-          <li><Link to={`/music/${item.id}`}>EDIT</Link></li>
-          <li className="right"><Link onClick={handleShowDelete}>DELETE</Link></li>
+          {auth.isLoggedIn && <li><Link to={`/music/${item.id}`}>EDIT</Link></li>}
+          {auth.isLoggedIn && <li className="right"><Link onClick={handleShowDelete}>DELETE</Link></li>}
         </ul>
       </Card>
     </li>

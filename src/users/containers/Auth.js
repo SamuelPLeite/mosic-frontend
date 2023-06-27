@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 import { useForm } from '../../shared/hooks/form'
+import { UserContext } from '../../shared/context/user-context'
 import Input from '../../shared/components/Form/Input'
 import Button from '../../shared/components/Form/Button'
 import Card from '../../shared/components/UIElements/Card'
@@ -9,6 +10,8 @@ import './Auth.css'
 
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false)
+
+  const auth = useContext(UserContext)
 
   const [formState, handleInput, setFormData] = useForm(
     {
@@ -47,7 +50,7 @@ const Auth = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
+    auth.login()
     console.log(formState.inputs)
   }
 
