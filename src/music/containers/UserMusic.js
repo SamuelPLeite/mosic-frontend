@@ -11,6 +11,7 @@ const MUSIC = [
     artist: "Björk",
     image: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Bj%C3%B6rk_-_Vulnicura_%28Official_Album_Cover%29.png",
     description: "What a song! :D",
+    rating: "5/5",
     isSong: true,
     creatorId: "uid1"
   },
@@ -20,6 +21,7 @@ const MUSIC = [
     artist: "Björk",
     image: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Bj%C3%B6rk_-_Vulnicura_%28Official_Album_Cover%29.png",
     description: "What a song! :D",
+    rating: "5/5",
     isSong: true,
     creatorId: "uid2"
   }
