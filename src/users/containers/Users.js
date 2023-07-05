@@ -11,10 +11,9 @@ const Users = () => {
   const { isLoading, error, sendReq, resetError } = useAxios()
 
   useEffect(() => {
-    console.log('entered use effect!')
     const getUsers = async () => {
       const response = await sendReq('http://localhost:3001/api/users')
-      setUsers(response.users)
+      response && setUsers(response.users)
     }
     getUsers()
   }, [sendReq])

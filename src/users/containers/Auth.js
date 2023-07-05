@@ -70,7 +70,8 @@ const Auth = () => {
       response = await sendReq('http://localhost:3001/api/users/login', 'post', loginInfo)
     }
     if (response)
-      auth.login()
+      auth.login(response.user.id)
+
   }
 
   return <>

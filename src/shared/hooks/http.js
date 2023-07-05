@@ -29,6 +29,7 @@ export const useAxios = () => {
     } catch (error) {
       if (error.response) {
         setError(error.response.data.message)
+      } else if (error.code === 'ERR_CANCELED') {
       } else {
         setError(error.message || 'Error detected, please do try again!')
       }

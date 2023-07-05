@@ -11,10 +11,17 @@ import { UserContext } from './shared/context/user-context';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userId, setUserId] = useState(null)
 
-  const login = useCallback(() => { setIsLoggedIn(true) }, [])
+  const login = useCallback((uid) => {
+    setIsLoggedIn(true)
+    setUserId(uid)
+  }, [])
 
-  const logout = useCallback(() => { setIsLoggedIn(false) }, [])
+  const logout = useCallback(() => {
+    setIsLoggedIn(false)
+    setUserId(null)
+  }, [])
 
   let routes
 
@@ -36,7 +43,7 @@ const App = () => {
   }
 
   return (
-    <UserContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}>
+    <UserContext.Provider value={{ userId: userId, isLoggedIn: isLoggedIn, login: login, logout: logout }}>
       <Router>
         <MainNavigation />
         <main>
