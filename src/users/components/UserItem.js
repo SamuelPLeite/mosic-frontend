@@ -11,7 +11,7 @@ const UserItem = ({ user }) => {
       <Card className="user-item__content">
         <Link to={`/users/${user.id}/music`}>
           <div className="user-item__image">
-            <Avatar image={'https://upload.wikimedia.org/wikipedia/pt/7/7d/Bjork_-_Homogenic_album.jpg'} alt={user.name} />
+            <Avatar image={'http://localhost:3001/' + user.image} alt={user.name} />
           </div>
           <div className="user-item__info">
             <h2>{user.name}</h2>

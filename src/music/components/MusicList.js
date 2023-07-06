@@ -4,7 +4,7 @@ import Card from "../../shared/components/UIElements/Card"
 import MusicItem from "./MusicItem"
 import './MusicList.css'
 
-const MusicList = ({ music }) => {
+const MusicList = ({ music, onDeleteItem }) => {
   if (music.length === 0)
     return (
       <div className="music-list center">
@@ -15,7 +15,7 @@ const MusicList = ({ music }) => {
     )
 
   return <ul className="music-list">
-    {music.map(item => <MusicItem key={item.id} item={item} />)}
+    {music.map(item => <MusicItem key={item.id} item={item} onDelete={onDeleteItem} />)}
   </ul>
 
 

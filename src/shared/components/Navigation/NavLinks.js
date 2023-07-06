@@ -12,7 +12,7 @@ const NavLinks = () => {
       <NavLink to="/" ><span>List of Users</span></NavLink>
     </li>
     {auth.isLoggedIn && <li>
-      <NavLink to="/users/uid1/music"><span>My Music</span></NavLink>
+      <NavLink to={`/users/${auth.userId}/music`}><span>My Music</span></NavLink>
     </li>}
     {auth.isLoggedIn && <li>
       <NavLink to="/music/new"><span>Post music!</span></NavLink>

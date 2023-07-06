@@ -8,6 +8,7 @@ import Button from '../../shared/components/Form/Button'
 import Card from '../../shared/components/UIElements/Card'
 import ErrorModal from '../../shared/components/UIElements/ErrorModal'
 import Loading from '../../shared/components/UIElements/Loading'
+import ImageUp from '../../shared/components/Form/ImageUp'
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from '../../shared/Utils/validator'
 import './Auth.css'
 
@@ -37,7 +38,8 @@ const Auth = () => {
       const validRes = formState.inputs.email.isValid && formState.inputs.password.isValid
       setFormData({
         ...formState.inputs,
-        username: undefined
+        username: undefined,
+        image: undefined
 
       }, validRes)
     } else {
@@ -45,6 +47,10 @@ const Auth = () => {
         ...formState.inputs,
         username: {
           value: '',
+          isValid: false
+        },
+        image: {
+          value: null,
           isValid: false
         }
       }, false)
@@ -56,18 +62,21 @@ const Auth = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const userSubmit = {
-      name: isSignup && formState.inputs.username.value,
-      email: formState.inputs.email.value,
-      password: formState.inputs.password.value
-    }
+    console.log(formState.inputs)
 
     let response
     if (isSignup) {
-      response = await sendReq('http://localhost:3001/api/users/signup', 'post', userSubmit)
+      const formData = new FormData()
+      formData.append('name', formState.inputs.username.value)
+      formData.append('email', formState.inputs.email.value)
+      formData.append('password', formState.inputs.password.value)
+      formData.append('image', formState.inputs.image.value)
+      response = await sendReq('http://localhost:3001/api/users/signup', 'post', formData)
     } else {
-      const { name, ...loginInfo } = userSubmit
-      response = await sendReq('http://localhost:3001/api/users/login', 'post', loginInfo)
+      response = await sendReq('http://localhost:3001/api/users/login', 'post', {
+        email: formState.inputs.email.value,
+        password: formState.inputs.password.value
+      })
     }
     if (response)
       auth.login(response.user.id)
@@ -91,6 +100,8 @@ const Auth = () => {
             validators={[VALIDATOR_MINLENGTH(3)]}
             errorText="Enter valid username!"
           />}
+        {isSignup && <ImageUp center id="image"
+          onInput={handleInput} errorText="Please, do provide an image..!" />}
         <Input
           id="email"
           type="text"
@@ -106,7 +117,7 @@ const Auth = () => {
           label="Password"
           element="input"
           onInput={handleInput}
-          validators={[VALIDATOR_MINLENGTH(8)]}
+          validators={[VALIDATOR_MINLENGTH(6)]}
           errorText="A password has to be at least 8 characters long."
         />
         <Button type="submit" disabled={!formState.isValid}>

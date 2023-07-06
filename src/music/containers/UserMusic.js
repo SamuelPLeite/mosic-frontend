@@ -7,29 +7,6 @@ import Loading from "../../shared/components/UIElements/Loading"
 import { useAxios } from "../../shared/hooks/http"
 import './UserMusic.css'
 
-const MUSIC = [
-  {
-    id: "mid1",
-    title: "Notget",
-    artist: "Björk",
-    image: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Bj%C3%B6rk_-_Vulnicura_%28Official_Album_Cover%29.png",
-    description: "What a song! :D",
-    rating: "5/5",
-    isSong: true,
-    creatorId: "uid1"
-  },
-  {
-    id: "mid2",
-    title: "Lionsong",
-    artist: "Björk",
-    image: "https://upload.wikimedia.org/wikipedia/pt/f/f1/Bj%C3%B6rk_-_Vulnicura_%28Official_Album_Cover%29.png",
-    description: "What a song! :D",
-    rating: "5/5",
-    isSong: true,
-    creatorId: "uid2"
-  }
-]
-
 const UserMusic = () => {
   const [userMusic, setUserMusic] = useState()
   const { isLoading, error, sendReq, resetError } = useAxios()
@@ -45,10 +22,15 @@ const UserMusic = () => {
     getUserMusic()
   }, [sendReq, uid])
 
+  const handleDeleteMusic = (mId) => {
+    setUserMusic((currentMusic) => currentMusic.filter(m => m.id !== mId))
+  }
+
   return <>
     <ErrorModal error={error} onClear={resetError} />
     {isLoading && <div className="center"><Loading /></div>}
-    {!isLoading && userMusic && <MusicList music={userMusic} />}
+    {!isLoading && userMusic &&
+      <MusicList music={userMusic} onDeleteItem={handleDeleteMusic} />}
   </>
 }
 
