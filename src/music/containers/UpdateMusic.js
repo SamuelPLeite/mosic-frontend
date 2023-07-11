@@ -58,7 +58,8 @@ const UpdateMusic = () => {
     const response = await sendReq(`http://localhost:3001/api/music/${mId}`, 'patch', {
       rating: formState.inputs.rating.value,
       description: formState.inputs.description.value
-    })
+    },
+      { Authorization: `bearer ${auth.token}` })
     if (response)
       navigate(`/users/${auth.userId}/music`)
   }

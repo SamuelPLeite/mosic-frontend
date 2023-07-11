@@ -46,8 +46,9 @@ const PostMusic = () => {
       artist: formState.inputs.artist.value,
       rating: formState.inputs.rating.value,
       description: formState.inputs.description.value,
-      creatorId: auth.userId,
       isSong: true
+    }, {
+      Authorization: `bearer ${auth.token}`
     })
 
     if (response)

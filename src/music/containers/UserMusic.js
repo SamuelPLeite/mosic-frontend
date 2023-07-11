@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 import MusicList from "../components/MusicList"
-import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import Loading from "../../shared/components/UIElements/Loading"
 import { useAxios } from "../../shared/hooks/http"
 import './UserMusic.css'
 
 const UserMusic = () => {
-  const [userMusic, setUserMusic] = useState()
-  const { isLoading, error, sendReq, resetError } = useAxios()
+  const [userMusic, setUserMusic] = useState([])
+  const { isLoading, sendReq } = useAxios()
 
   const uid = useParams().uid
 
@@ -27,7 +26,6 @@ const UserMusic = () => {
   }
 
   return <>
-    <ErrorModal error={error} onClear={resetError} />
     {isLoading && <div className="center"><Loading /></div>}
     {!isLoading && userMusic &&
       <MusicList music={userMusic} onDeleteItem={handleDeleteMusic} />}

@@ -44,7 +44,8 @@ const MusicItem = ({ item, onDelete }) => {
 
   const handleDeleteMusic = async () => {
     setShowDelete(false)
-    const response = await sendReq(`http://localhost:3001/api/music/${item.id}`, 'delete')
+    const response = await sendReq(`http://localhost:3001/api/music/${item.id}`, 'delete', {},
+      { Authorization: `bearer ${auth.token}` })
     if (response)
       onDelete(item.id)
   }

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import MainNavigation from './shared/components/Navigation/MainNavigation';
@@ -8,24 +8,14 @@ import UserMusic from './music/containers/UserMusic';
 import UpdateMusic from './music/containers/UpdateMusic';
 import Auth from './users/containers/Auth';
 import { UserContext } from './shared/context/user-context';
+import { useAuth } from './shared/hooks/auth';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userId, setUserId] = useState(null)
-
-  const login = useCallback((uid) => {
-    setIsLoggedIn(true)
-    setUserId(uid)
-  }, [])
-
-  const logout = useCallback(() => {
-    setIsLoggedIn(false)
-    setUserId(null)
-  }, [])
+  const { login, logout, token, userId } = useAuth()
 
   let routes
 
-  if (isLoggedIn) {
+  if (token) {
     routes = <>
       <Route path="/users/:uid/music" element={<UserMusic />} />
       <Route path="/music/new" element={<PostMusic />} />
@@ -43,7 +33,15 @@ const App = () => {
   }
 
   return (
-    <UserContext.Provider value={{ userId: userId, isLoggedIn: isLoggedIn, login: login, logout: logout }}>
+    <UserContext.Provider value={
+      {
+        token,
+        userId: userId,
+        isLoggedIn: !!token,
+        login: login,
+        logout: logout
+      }
+    }>
       <Router>
         <MainNavigation />
         <main>
