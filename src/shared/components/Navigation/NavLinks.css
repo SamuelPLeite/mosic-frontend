@@ -23,14 +23,18 @@
 
 .nav-links a:hover,
 .nav-links a:active,
-.nav-links a.active {
+.nav-links a.active,
+.nav-links button:hover,
+.nav-links button:active {
   background: #bfd2dd;
   border-radius: 5%;
 }
 
 .nav-links a:hover span,
 .nav-links a:active span,
-.nav-links a.active span {
+.nav-links a.active span,
+.nav-links button:hover span,
+.nav-links button:active span {
   background-image: linear-gradient(118deg, #043D48 0%, #4CBEE8 100%);
   background-size: 100%;
   -webkit-background-clip: text;
@@ -55,12 +59,6 @@
   outline: none;
 }
 
-.nav-links button:hover,
-.nav-links button:active {
-  background: #292929;
-  color: white;
-}
-
 @media (min-width: 768px) {
   .nav-links {
     flex-direction: row;
@@ -76,14 +74,10 @@
   }
 
   .nav-links button {
-    border: 1px solid white;
+    border: 1px solid #bfd2dd;
     color: white;
     background: transparent;
+    border-radius: 5%;
   }
 
-  .nav-links button:hover,
-  .nav-links button:active {
-    background: #f8df00;
-    color: #292929;
-  }
 }

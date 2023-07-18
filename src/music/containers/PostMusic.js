@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Rating from '@mui/material/Rating'
 
 import Input from '../../shared/components/Form/Input'
 import Button from '../../shared/components/Form/Button'
 import ErrorModal from '../../shared/components/UIElements/ErrorModal'
 import Loading from '../../shared/components/UIElements/Loading'
+import TrackButton from '../components/TrackButton'
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/Utils/validator'
 import { useForm } from '../../shared/hooks/form'
 import { useAxios } from '../../shared/hooks/http'
@@ -16,8 +18,11 @@ import './MusicForm.css'
 const PostMusic = () => {
   const auth = useContext(UserContext)
   const { isLoading, error, sendReq, resetError } = useAxios()
+
   const [imageUrl, setImageUrl] = useState('')
   const [loadingImg, setLoadingImg] = useState(false)
+  const [isSong, setIsSong] = useState(true)
+
   const [formState, handleInput] = useForm(
     {
       title: {
@@ -45,13 +50,17 @@ const PostMusic = () => {
     const responseFull = await axios.post('http://localhost:3001/api/deezer', {
       title: formState.inputs.title.value,
       artist: formState.inputs.artist.value,
-      isSong: true
+      isSong: isSong
     })
 
     const response = responseFull.data
     console.log(response)
-    if (Object.keys(response).length !== 0)
-      setImageUrl(response.data.album.cover_big)
+    if (Object.keys(response).length !== 0) {
+      if (isSong)
+        setImageUrl(response.data.album.cover_big)
+      else
+        setImageUrl(response.data.cover_big)
+    }
     else
       setImageUrl('')
 
@@ -60,9 +69,13 @@ const PostMusic = () => {
 
   useEffect(() => {
     debouncedRequest()
-  }, [debouncedRequest, formState.inputs.title.value, formState.inputs.artist.value])
+  }, [debouncedRequest, formState.inputs.title.value, formState.inputs.artist.value, isSong])
 
   const navigate = useNavigate()
+
+  const handleTrackButton = (value) => {
+    setIsSong(value)
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -90,7 +103,7 @@ const PostMusic = () => {
         <div className="music-form__details-image">
           {loadingImg && <div className='loading'><Loading /></div>}
           {imageUrl ? <img src={imageUrl} alt={'Rina'} /> :
-            <div className="center">Waiting for valid Title and Artist to load artwork...</div>}
+            (!loadingImg && <div className="center">Waiting for valid Title and Artist to load artwork...</div>)}
         </div>
         <div className="music-form__details-fields">
           <Input
@@ -111,15 +124,16 @@ const PostMusic = () => {
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Enter valid artist!"
           />
-          <Input
-            id="rating"
-            type="text"
-            label="Rating"
-            element="input"
-            onInput={handleInput}
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Enter valid rating!"
-          />
+          <div className="third-line">
+            <div className="rating-block">
+              <p className="rating-label">Rating</p>
+              <Rating name="half-rating" defaultValue={0} precision={0.5}
+                onChange={(event, newValue) => {
+                  handleInput('rating', newValue, true)
+                }} />
+            </div>
+            <div className="track-button"><TrackButton onChange={handleTrackButton} /></div>
+          </div>
         </div>
       </div>
       <Input
