@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { Link } from 'react-router-dom'
 import Rating from '@mui/material/Rating'
 
@@ -8,19 +8,30 @@ import Modal from "../../shared/components/UIElements/Modal"
 import Button from "../../shared/components/Form/Button"
 import Loading from "../../shared/components/UIElements/Loading"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal"
-import Avatar from "../../shared/components/UIElements/Avatar"
-import { RespinIcon, LikeIcon, CommentIcon, InfoIcon } from "./Icons"
+import CommentList from "./CommentList"
+import { RespinIcon, RespinIconFilled, RespinIconGrey, LikeIcon, CommentIcon, InfoIcon } from "./Icons"
 import { UserContext } from "../../shared/context/user-context"
 import { useAxios } from '../../shared/hooks/http'
 import './MusicItem.css'
 
 // title, artist, image, isSong, description, id, creatorId
 
-const MusicItem = ({ item, onDelete }) => {
+const MusicItem = ({ item, respins, onDelete, onRespin }) => {
   const auth = useContext(UserContext)
   const [showDelete, setShowDelete] = useState(false)
+  const [isRespun, setIsRespun] = useState(false)
 
   const { isLoading, error, sendReq, resetError } = useAxios()
+
+  console.log(respins)
+  console.log(item.id)
+  useEffect(() => {
+    if (respins.includes(item.id)) {
+      setIsRespun(true)
+    } else {
+      setIsRespun(false)
+    }
+  }, [respins, item.id])
 
   const handleShowDelete = () => {
     setShowDelete(true)
@@ -38,6 +49,26 @@ const MusicItem = ({ item, onDelete }) => {
       onDelete(item.id)
   }
 
+  const handleRespin = async () => {
+    if (!isRespun) {
+      const response = await sendReq(`http://localhost:3001/api/music/respin`, 'post', {
+        musicPost: item.id
+      },
+        { Authorization: `bearer ${auth.token}` })
+      if (response) {
+        onRespin(item.id, isRespun)
+        setIsRespun(true)
+      }
+    } else {
+      const response = await sendReq(`http://localhost:3001/api/music/respin/${item.id}`, 'delete', {},
+        { Authorization: `bearer ${auth.token}` })
+      if (response) {
+        onRespin(item.id, isRespun)
+        setIsRespun(false)
+      }
+    }
+  }
+
   return <>
     <ErrorModal error={error} onClear={resetError} />
     <Modal
@@ -51,6 +82,10 @@ const MusicItem = ({ item, onDelete }) => {
     </Modal>
     <li className="music-item">
       <div className="music-item__user">
+        {item.respinId && <div className="respin-tag">
+          <RespinIconGrey />
+          <span>respun from</span>
+        </div>}
         <img src={item.image} alt={item.title} />
         <span>{item.artist}</span>
       </div>
@@ -70,12 +105,15 @@ const MusicItem = ({ item, onDelete }) => {
           <p>{item.description}</p>
         </div>
         <ul className="music-item__actions">
-          <li className="left"><Link><RespinIcon /></Link></li>
+          <li className="left"><Link onClick={handleRespin}>
+            {!isRespun ? <RespinIcon /> : <RespinIconFilled />}</Link>
+          </li>
           <li className="like"><Link><LikeIcon /></Link></li>
           <li className="comment"><Link to={`/music/${item.id}`}><CommentIcon /></Link></li>
           <li className="right"><Link onClick={handleShowDelete}><InfoIcon /></Link></li>
         </ul>
       </Card>
+      {item.comments && <CommentList comments={item.comments} />}
     </li>
   </>
 }

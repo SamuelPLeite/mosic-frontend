@@ -37,13 +37,13 @@
   border-radius: 5px;
   background: #ffffff91;
   padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .music-item__image {
   width: 40%;
   aspect-ratio: 1 / 1;
   margin-right: 3%;
-
 }
 
 .music-item__image img {
@@ -140,5 +140,19 @@
   }
 }
 
+.respin-tag span {
+  margin: 0 0.5rem;
+  vertical-align: top;
+  color: #79838b;
+}
 
-@media (min-width: 768px) {}
+@media (max-width: 768px) {
+  .music-item__user {
+    left: -0.5rem;
+  }
+
+  .music-item__image {
+    width: 120px;
+    height: 120px;
+  }
+}
