@@ -34,7 +34,7 @@ const UpdateMusic = () => {
 
   useEffect(() => {
     const getMusic = async () => {
-      const response = await sendReq(`http://localhost:3001/api/music/${mId}`)
+      const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/${mId}`)
       if (response) {
         setMusicToUpdate(response.music)
         setFormData({
@@ -55,7 +55,7 @@ const UpdateMusic = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const response = await sendReq(`http://localhost:3001/api/music/${mId}`, 'patch', {
+    const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/${mId}`, 'patch', {
       rating: formState.inputs.rating.value,
       description: formState.inputs.description.value
     },

@@ -1,0 +1,26 @@
+.comment-list__container {
+  position: relative;
+  margin: -1rem 0;
+  padding: 0;
+  z-index: 0;
+  background: #cde2f4;
+  box-shadow: 12px 12px 33px #acbecd,
+    -12px -12px 33px #eeffff;
+}
+
+.comment-list {
+  display: flex;
+  margin: 3rem 2rem 2rem;
+  padding: 0.5rem;
+  flex-direction: column;
+  list-style: none;
+  width: 90%;
+  background: #ffffffcb;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .comment-list {
+    margin: 3rem 5.5% 2rem;
+  }
+}

@@ -47,7 +47,7 @@ const PostMusic = () => {
 
   const debouncedRequest = useDebounce(async () => {
     setLoadingImg(true)
-    const responseFull = await axios.post('http://localhost:3001/api/deezer', {
+    const responseFull = await axios.post(process.env.REACT_APP_BACKEND_URL + 'api/deezer', {
       title: formState.inputs.title.value,
       artist: formState.inputs.artist.value,
       isSong: isSong
@@ -80,7 +80,7 @@ const PostMusic = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const response = await sendReq('http://localhost:3001/api/music/', 'post', {
+    const response = await sendReq(process.env.REACT_APP_BACKEND_URL + 'api/music/', 'post', {
       title: formState.inputs.title.value,
       artist: formState.inputs.artist.value,
       rating: formState.inputs.rating.value,

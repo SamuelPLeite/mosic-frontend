@@ -71,15 +71,15 @@ const Auth = () => {
       formData.append('email', formState.inputs.email.value)
       formData.append('password', formState.inputs.password.value)
       formData.append('image', formState.inputs.image.value)
-      response = await sendReq('http://localhost:3001/api/users/signup', 'post', formData)
+      response = await sendReq(process.env.REACT_APP_BACKEND_URL + 'api/users/signup', 'post', formData)
     } else {
-      response = await sendReq('http://localhost:3001/api/users/login', 'post', {
+      response = await sendReq(process.env.REACT_APP_BACKEND_URL + 'api/users/login', 'post', {
         email: formState.inputs.email.value,
         password: formState.inputs.password.value
       })
     }
     if (response)
-      auth.login(response.userId, response.token)
+      auth.login(response.userId, response.token, response.image, response.username)
 
   }
 

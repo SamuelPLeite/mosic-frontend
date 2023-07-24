@@ -1,0 +1,27 @@
+.comment-form {
+  display: flex;
+  padding: 1.5rem;
+  border-bottom: 3px double #8ca3a4;
+}
+
+.comment-form__form {
+  list-style: none;
+  flex-grow: 1;
+}
+
+.comment-form__form textarea {
+  resize: none;
+  border-radius: 6px;
+}
+
+.comment-form__form button {
+  position: relative;
+  padding: 0.2rem 0.5rem;
+  margin: 0;
+}
+
+.fallback {
+  padding: 1rem 0;
+  border-bottom: 3px double #8ca3a4;
+
+}

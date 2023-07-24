@@ -17,7 +17,7 @@ const UserMusic = () => {
 
   useEffect(() => {
     const getUserMusic = async () => {
-      const response = await sendReq(`http://localhost:3001/api/music/user/${uid}`)
+      const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/user/${uid}`)
       if (response)
         setUserMusic(response.userMusic)
     }
@@ -26,7 +26,7 @@ const UserMusic = () => {
 
   useEffect(() => {
     const getUserRespins = async () => {
-      const response = await sendReq(`http://localhost:3001/api/music/respin`, 'get', {},
+      const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/respin`, 'get', {},
         {
           Authorization: `bearer ${auth.token}`
         })
@@ -55,14 +55,34 @@ const UserMusic = () => {
     setRespinPosts((current) => isRespun ? current.filter(p => p !== mId) : current.concat(mId))
   }
 
+  const handleComment = (comment, isDelete) => {
+    if (!isDelete) {
+      const userMusicCopy = [...userMusic]
+      userMusicCopy.forEach(post => post.id === comment.musicPost && post.comments.push(comment))
+      setUserMusic(userMusicCopy)
+      console.log(userMusicCopy)
+      console.log("Called handle comment!")
+    } else {
+      const userMusicCopy = [...userMusic]
+      userMusicCopy.forEach(post => {
+        if (post.id === comment.musicPost) {
+          post.comments = post.comments.filter(cmnt => cmnt._id !== comment._id)
+        }
+      })
+      setUserMusic(userMusicCopy)
+      console.log(userMusicCopy)
+    }
+  }
+
   return <>
-    {isLoading && <div className="center"><Loading /></div>}
-    {!isLoading && userMusic &&
+    {(isLoading || userMusic.length === 0 || uid !== userMusic[0].creatorId) ?
+      <div className="center"><Loading /></div> :
       <MusicList
         music={userMusic}
         respins={respinPosts}
         onDeleteItem={handleDeleteMusic}
         onRespin={handleRespin}
+        onComment={handleComment}
       />}
   </>
 }

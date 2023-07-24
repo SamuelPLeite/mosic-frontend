@@ -4,8 +4,7 @@ import Card from "../../shared/components/UIElements/Card"
 import MusicItem from "./MusicItem"
 import './MusicList.css'
 
-const MusicList = ({ music, respins, onDeleteItem, onRespin }) => {
-  console.log(music)
+const MusicList = ({ music, respins, onDeleteItem, onRespin, onComment }) => {
   if (music.length === 0)
     return (
       <div className="music-list center">
@@ -23,6 +22,7 @@ const MusicList = ({ music, respins, onDeleteItem, onRespin }) => {
         respins={respins}
         onDelete={onDeleteItem}
         onRespin={onRespin}
+        onComment={onComment}
       />)}
   </ul>
 
