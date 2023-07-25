@@ -5,11 +5,13 @@ import Button from "../../shared/components/Form/Button"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import Modal from "../../shared/components/UIElements/Modal"
 import { UserContext } from "../../shared/context/user-context"
+import MusicContext from "../../shared/context/music-context"
 import { useAxios } from '../../shared/hooks/http'
 import './CommentItem.css'
 
-const CommentItem = ({ item, onComment }) => {
+const CommentItem = ({ item }) => {
   const auth = useContext(UserContext)
+  const [state, dispatch] = useContext(MusicContext)
   const [showDelete, setShowDelete] = useState(false)
 
   const { error, sendReq, resetError } = useAxios()
@@ -28,7 +30,16 @@ const CommentItem = ({ item, onComment }) => {
     const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/comment/${item._id}`, 'delete', {},
       { Authorization: `bearer ${auth.token}` })
     if (response) {
-      onComment(item, true)
+      const userMusicCopy = [...state.musicReposts]
+      userMusicCopy.forEach(post => {
+        if (post.id === item.musicPost) {
+          post.comments = post.comments.filter(cmnt => cmnt._id !== item._id)
+        }
+      })
+      dispatch({
+        type: "CHANGE_MUSICPOSTS",
+        payload: userMusicCopy
+      })
       console.log(response)
     }
   }

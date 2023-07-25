@@ -7,6 +7,7 @@ import PostMusic from './music/containers/PostMusic';
 import UserMusic from './music/containers/UserMusic';
 import UpdateMusic from './music/containers/UpdateMusic';
 import Auth from './users/containers/Auth';
+import { MusicContextProvider } from './shared/context/music-context';
 import { UserContext } from './shared/context/user-context';
 import { useAuth } from './shared/hooks/auth';
 
@@ -17,7 +18,7 @@ const App = () => {
 
   if (token) {
     routes = <>
-      <Route path="/users/:uid/music" element={<UserMusic />} />
+      <Route path="/users/:uid/music" element={<MusicContextProvider><UserMusic /></MusicContextProvider>} />
       <Route path="/music/new" element={<PostMusic />} />
       <Route path="/music/:mId" element={<UpdateMusic />} />
       <Route path="/" element={<Users />} />
@@ -25,7 +26,7 @@ const App = () => {
     </>
   } else {
     routes = <>
-      <Route path="/users/:uid/music" element={<UserMusic />} />
+      <Route path="/users/:uid/music" element={<MusicContextProvider><UserMusic /></MusicContextProvider>} />
       <Route path="/login" element={<Auth />} />
       <Route path="/" element={<Users />} />
       <Route path="*" element={<Navigate to="/login" />} />

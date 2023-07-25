@@ -6,12 +6,14 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import Loading from "../../shared/components/UIElements/Loading"
 import { VALIDATOR_REQUIRE } from '../../shared/Utils/validator'
 import { UserContext } from "../../shared/context/user-context"
+import MusicContext from "../../shared/context/music-context"
 import { useForm } from "../../shared/hooks/form"
 import { useAxios } from '../../shared/hooks/http'
 import './CommentForm.css'
 
-const CommentForm = ({ postId, onComment }) => {
+const CommentForm = ({ postId }) => {
   const auth = useContext(UserContext)
+  const [state, dispatch] = useContext(MusicContext)
   const { isLoading, error, sendReq, resetError } = useAxios()
 
   const [formState, handleInput] = useForm(
@@ -45,9 +47,17 @@ const CommentForm = ({ postId, onComment }) => {
 
     if (response) {
       const { creator, id, ...rest } = response.comment
+      const newComment = { _id: id, ...rest, creatorId }
+      const userMusicCopy = [...state.musicPosts]
+      userMusicCopy.forEach(post => post.id === newComment.musicPost && post.comments.push(newComment))
+      userMusicCopy.forEach(post =>
+        post.comments.length > 1 && post.comments[post.comments.length - 1]._id === post.comments[post.comments.length - 2]._id && post.comments.pop()) // temporary fix for duplicate comment issue
+      console.log(userMusicCopy)
+      dispatch({
+        type: "CHANGE_MUSICPOSTS",
+        payload: userMusicCopy
+      })
       handleInput('comment', "dadada", false)
-      console.log(formState.inputs.comment.value)
-      onComment({ ...rest, creatorId, _id: id }, false)
     }
   }
 

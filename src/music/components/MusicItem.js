@@ -12,19 +12,22 @@ import CommentList from "./CommentList"
 import DotMenu from "../../shared/components/UIElements/DotMenu"
 import { RespinIcon, RespinIconFilled, RespinIconGrey, LikeIcon, CommentIcon, InfoIcon } from "./Icons"
 import { UserContext } from "../../shared/context/user-context"
+import MusicContext from "../../shared/context/music-context"
 import { useAxios } from '../../shared/hooks/http'
 import './MusicItem.css'
 
 // title, artist, image, isSong, description, id, creatorId
 
-const MusicItem = ({ item, respins, onDelete, onRespin, onComment }) => {
+const MusicItem = ({ item }) => {
   const auth = useContext(UserContext)
+  const [state, dispatch] = useContext(MusicContext)
   const [showDelete, setShowDelete] = useState(false)
   const [showComments, setShowComments] = useState(false)
   const [isRespun, setIsRespun] = useState(false)
 
   const { isLoading, error, sendReq, resetError } = useAxios()
 
+  const respins = state.userRespins
   useEffect(() => {
     if (respins.includes(item.id)) {
       setIsRespun(true)
@@ -45,27 +48,48 @@ const MusicItem = ({ item, respins, onDelete, onRespin, onComment }) => {
     setShowDelete(false)
     const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/${item.id}`, 'delete', {},
       { Authorization: `bearer ${auth.token}` })
-    if (response)
-      onDelete(item.id)
+    if (response) {
+      dispatch({
+        type: "CHANGE_MUSICPOSTS",
+        payload: state.musicPosts.filter(m => m.id !== item.id)
+      })
+    }
   }
 
   const handleRespin = async () => {
+    let response
     if (!isRespun) {
-      const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/respin`, 'post', {
-        musicPost: item.id
-      },
+      response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/respin`, 'post', { musicPost: item.id },
         { Authorization: `bearer ${auth.token}` })
-      if (response) {
-        onRespin(item.id, isRespun)
-        setIsRespun(true)
-      }
     } else {
-      const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/respin/${item.id}`, 'delete', {},
+      response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/respin/${item.id}`, 'delete', {},
         { Authorization: `bearer ${auth.token}` })
-      if (response) {
-        onRespin(item.id, isRespun)
-        setIsRespun(false)
+    }
+
+    if (response) {
+      if (state.uid === auth.userId) {
+        if (isRespun) {
+          dispatch({
+            type: "CHANGE_MUSICPOSTS",
+            payload: state.musicPosts.filter(m => m.id !== item.id || !m.respinId)
+          })
+        } else {
+          const post = state.musicPosts.find(m => m.id === item.id)
+          const respinPost = { ...post, respinId: response.music.id }
+          console.log(respinPost)
+          dispatch({
+            type: "CHANGE_MUSICPOSTS",
+            payload: [respinPost].concat(state.musicPosts)
+          })
+        }
       }
+      dispatch({
+        type: "CHANGE_USERRESPINS",
+        payload: isRespun ?
+          state.userRespins.filter(p => p !== item.id) :
+          state.userRespins.concat(item.id)
+      })
+      setIsRespun(current => !current)
     }
   }
 
@@ -131,7 +155,6 @@ const MusicItem = ({ item, respins, onDelete, onRespin, onComment }) => {
         <CommentList
           comments={item.comments}
           postId={item.id}
-          onComment={onComment}
         />
       </CSSTransition>
     </li>
