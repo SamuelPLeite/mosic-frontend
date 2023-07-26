@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react"
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from "react"
 import Rating from '@mui/material/Rating'
 import { CSSTransition } from "react-transition-group"
 
+import MusicItemActions from "./MusicItemActions"
 import Card from "../../shared/components/UIElements/Card"
 import Modal from "../../shared/components/UIElements/Modal"
 import Button from "../../shared/components/Form/Button"
@@ -10,7 +10,7 @@ import Loading from "../../shared/components/UIElements/Loading"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import CommentList from "./CommentList"
 import DotMenu from "../../shared/components/UIElements/DotMenu"
-import { RespinIcon, RespinIconFilled, RespinIconGrey, LikeIcon, CommentIcon, InfoIcon } from "./Icons"
+import { RespinIconGrey } from "./Icons"
 import { UserContext } from "../../shared/context/user-context"
 import MusicContext from "../../shared/context/music-context"
 import { useAxios } from '../../shared/hooks/http'
@@ -23,18 +23,8 @@ const MusicItem = ({ item }) => {
   const [state, dispatch] = useContext(MusicContext)
   const [showDelete, setShowDelete] = useState(false)
   const [showComments, setShowComments] = useState(false)
-  const [isRespun, setIsRespun] = useState(false)
 
   const { isLoading, error, sendReq, resetError } = useAxios()
-
-  const respins = state.userRespins
-  useEffect(() => {
-    if (respins.includes(item.id)) {
-      setIsRespun(true)
-    } else {
-      setIsRespun(false)
-    }
-  }, [respins, item.id])
 
   const handleShowDelete = () => {
     setShowDelete(true)
@@ -56,44 +46,8 @@ const MusicItem = ({ item }) => {
     }
   }
 
-  const handleRespin = async () => {
-    let response
-    if (!isRespun) {
-      response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/respin`, 'post', { musicPost: item.id },
-        { Authorization: `bearer ${auth.token}` })
-    } else {
-      response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/respin/${item.id}`, 'delete', {},
-        { Authorization: `bearer ${auth.token}` })
-    }
-
-    if (response) {
-      if (state.uid === auth.userId) {
-        if (isRespun) {
-          dispatch({
-            type: "CHANGE_MUSICPOSTS",
-            payload: state.musicPosts.filter(m => m.id !== item.id || !m.respinId)
-          })
-        } else {
-          const post = state.musicPosts.find(m => m.id === item.id)
-          const respinPost = { ...post, respinId: response.music.id }
-          console.log(respinPost)
-          dispatch({
-            type: "CHANGE_MUSICPOSTS",
-            payload: [respinPost].concat(state.musicPosts)
-          })
-        }
-      }
-      dispatch({
-        type: "CHANGE_USERRESPINS",
-        payload: isRespun ?
-          state.userRespins.filter(p => p !== item.id) :
-          state.userRespins.concat(item.id)
-      })
-      setIsRespun(current => !current)
-    }
-  }
-
-  const handleShowComments = () => {
+  const handleShowComments = (event) => {
+    event.preventDefault()
     setShowComments(current => !current)
   }
 
@@ -114,8 +68,8 @@ const MusicItem = ({ item }) => {
           <RespinIconGrey />
           <span>respun from</span>
         </div>}
-        <img src={item.image} alt={item.title} />
-        <span>{item.artist}</span>
+        <img src={process.env.REACT_APP_BACKEND_URL + item.creatorId.image} alt={item.creatorId.name} />
+        <span>{item.creatorId.name}</span>
       </div>
       <Card className="music-item__content">
         {isLoading && <Loading asOverlay />}
@@ -137,14 +91,7 @@ const MusicItem = ({ item }) => {
         <div className="music-item__description">
           <p>{item.description}</p>
         </div>
-        <ul className="music-item__actions">
-          <li className="left"><Link onClick={handleRespin}>
-            {!isRespun ? <RespinIcon /> : <RespinIconFilled />}</Link>
-          </li>
-          <li className="like"><Link><LikeIcon /></Link></li>
-          <li className="comment"><Link onClick={handleShowComments}><CommentIcon /></Link></li>
-          <li className="right"><Link onClick={handleShowDelete}><InfoIcon /></Link></li>
-        </ul>
+        <MusicItemActions item={item} handleShowComments={handleShowComments} />
       </Card>
       <CSSTransition
         in={showComments}

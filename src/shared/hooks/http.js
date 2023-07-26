@@ -7,7 +7,7 @@ export const useAxios = () => {
 
   const activeHttpRequests = useRef([])
 
-  const sendReq = useCallback(async (url, method = 'get', data = null, headers = {}) => {
+  const sendReq = useCallback(async (url, method = 'get', data = null, headers = {}, params = null) => {
     setIsLoading(true)
     const HttpAbortCtrl = new AbortController()
     activeHttpRequests.current.push(HttpAbortCtrl)
@@ -17,6 +17,7 @@ export const useAxios = () => {
         url,
         headers,
         data,
+        params,
         signal: HttpAbortCtrl.signal
       })
 
@@ -28,11 +29,18 @@ export const useAxios = () => {
       return response.data
     } catch (error) {
       if (error.response) {
+        if (error.response.status === 404) {
+          setIsLoading(false)
+          console.log(error)
+          return { error: 404 }
+        }
         setError(error.response.data.message)
-      } else if (error.code === 'ERR_CANCELED') {
-      } else {
-        setError(error.message || 'Error detected, please do try again!')
-      }
+      } else
+        if (error.code === 'ERR_CANCELED') {
+          return
+        } else {
+          setError(error.message || 'Error detected, please do try again!')
+        }
       setIsLoading(false)
       console.log(error)
     }

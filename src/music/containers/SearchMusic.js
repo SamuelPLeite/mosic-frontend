@@ -1,49 +1,37 @@
-import React, { useEffect, useContext, useState } from "react"
-import { useParams } from "react-router-dom"
+import React, { useEffect, useContext } from "react"
+import { useSearchParams } from "react-router-dom"
 
 import MusicList from "../components/MusicList"
 import Loading from "../../shared/components/UIElements/Loading"
 import MusicContext from "../../shared/context/music-context"
 import { useAxios } from "../../shared/hooks/http"
 import { UserContext } from "../../shared/context/user-context"
-import './UserMusic.css'
 
-const UserMusic = () => {
+const SearchMusic = () => {
   const auth = useContext(UserContext)
   const [state, dispatch] = useContext(MusicContext)
-  const [loadedMusic, setLoadedMusic] = useState(false)
   const { isLoading, sendReq } = useAxios()
 
-  const uid = useParams().uid
+  const [searchParams] = useSearchParams()
 
   useEffect(() => {
-    dispatch({
-      type: "CHANGE_UID",
-      payload: uid
-    })
-  }, [dispatch, uid])
-
-  useEffect(() => {
-    const getUserMusic = async () => {
-      setLoadedMusic(false)
-      const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/user/${uid}`)
+    const getSearchMusic = async () => {
+      const queryParams = Object.fromEntries([...searchParams])
+      const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/search`, 'get', null,
+        {}, queryParams)
       if (response) {
-        if (response.error === 404) {
-          dispatch({
-            type: "CHANGE_MUSICPOSTS",
-            payload: []
-          })
-        } else {
-          dispatch({
-            type: "CHANGE_MUSICPOSTS",
-            payload: response.userMusic
-          })
-        }
-        setLoadedMusic(true) // ALERT ALERT ALERT ALERT
+        dispatch({
+          type: "CHANGE_MUSICPOSTS",
+          payload: response.music
+        })
+        dispatch({
+          type: "CHANGE_UID",
+          payload: ''
+        })
       }
     }
-    getUserMusic()
-  }, [sendReq, uid, dispatch])
+    getSearchMusic()
+  }, [sendReq, searchParams, dispatch])
 
   useEffect(() => {
     const getUserRespins = async () => {
@@ -60,10 +48,10 @@ const UserMusic = () => {
     }
     if (auth.isLoggedIn)
       getUserRespins()
-  }, [auth.isLoggedIn, auth.token, sendReq, uid, dispatch])
+  }, [auth.isLoggedIn, auth.token, sendReq, dispatch])
 
   return <>
-    {(isLoading || !loadedMusic) ?
+    {(isLoading || state.musicPosts.length === 0 || state.uid) ?
       <div className="center"><Loading /></div> :
       <MusicList
         music={state.musicPosts}
@@ -73,4 +61,4 @@ const UserMusic = () => {
   </>
 }
 
-export default UserMusic
+export default SearchMusic

@@ -1,0 +1,73 @@
+.music-item__actions {
+  list-style: none;
+  padding: 0;
+  height: 3rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  align-items: center;
+  border-radius: 5px;
+  background: rgb(239, 225, 244);
+  background: linear-gradient(326deg, rgba(239, 225, 244, 1) 0%, rgba(202, 231, 240, 1) 100%);
+  box-shadow: 6px 6px 15px 1px rgba(7, 40, 77, 0.2);
+  -webkit-box-shadow: 6px 6px 15px 1px rgba(7, 40, 77, 0.2);
+  -moz-box-shadow: 6px 6px 15px 1px rgba(7, 40, 77, 0.2);
+}
+
+.music-item__actions a {
+  text-decoration: none;
+  display: block;
+}
+
+.music-item__actions li.left a {
+  border-radius: 5px 0 0 5px;
+}
+
+.music-item__actions li.right a {
+  border-radius: 0 5px 5px 0;
+}
+
+.music-item__actions a:hover {
+  background: rgb(181, 179, 206);
+
+}
+
+.music-item__actions li {
+  width: 25%;
+  height: 100%;
+  float: left;
+  border-right: 1px solid #8ca3a4;
+  line-height: 3em;
+}
+
+.music-item__actions li.right {
+  border-right: none;
+}
+
+.left svg,
+.like svg,
+.comment svg,
+.right svg {
+  vertical-align: middle;
+}
+
+.left:hover svg {
+  animation-name: rotate;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+
+@keyframes rotate {
+  0% {
+    transform: scale(1.1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.3) rotate(180deg);
+  }
+
+  100% {
+    transform: scale(1.1) rotate(360deg);
+  }
+}

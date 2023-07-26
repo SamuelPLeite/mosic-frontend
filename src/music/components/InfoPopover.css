@@ -1,0 +1,41 @@
+.info-popover {
+  padding: 1rem;
+  background: #d5e6f59d;
+  border-radius: 5px;
+}
+
+.info-popover .artist span {
+  margin-left: 2.5rem;
+}
+
+.info-popover img {
+  position: absolute;
+  left: 5rem;
+  bottom: 1.5rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info-popover a {
+  color: rgba(0, 0, 0, 0.911);
+  text-decoration: none;
+  padding: 0.3rem;
+  line-height: 2.5rem;
+  border-radius: 5px;
+}
+
+.info-popover .duration {
+  color: rgba(0, 0, 0, 0.911);
+  padding: 0.3rem;
+  line-height: 2.5rem;
+}
+
+.info-popover a:hover {
+  background-color: rgba(94, 97, 100, 0.219);
+}
+
+.info-popover a:visited {
+  color: black;
+}

@@ -21,6 +21,7 @@ const PostMusic = () => {
 
   const [imageUrl, setImageUrl] = useState('')
   const [loadingImg, setLoadingImg] = useState(false)
+  const [info, setInfo] = useState(null)
   const [isSong, setIsSong] = useState(true)
 
   const [formState, handleInput] = useForm(
@@ -60,6 +61,7 @@ const PostMusic = () => {
         setImageUrl(response.data.album.cover_big)
       else
         setImageUrl(response.data.cover_big)
+      setInfo(response.data)
     }
     else
       setImageUrl('')
@@ -85,8 +87,9 @@ const PostMusic = () => {
       artist: formState.inputs.artist.value,
       rating: formState.inputs.rating.value,
       image: imageUrl,
+      info: info,
       description: formState.inputs.description.value,
-      isSong: true
+      isSong: isSong
     }, {
       Authorization: `bearer ${auth.token}`
     })
