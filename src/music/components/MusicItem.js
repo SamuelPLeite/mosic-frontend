@@ -10,6 +10,7 @@ import Loading from "../../shared/components/UIElements/Loading"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import CommentList from "./CommentList"
 import DotMenu from "../../shared/components/UIElements/DotMenu"
+import LikesDisplay from "./LikesDisplay"
 import { RespinIconGrey } from "./Icons"
 import { UserContext } from "../../shared/context/user-context"
 import MusicContext from "../../shared/context/music-context"
@@ -46,8 +47,7 @@ const MusicItem = ({ item }) => {
     }
   }
 
-  const handleShowComments = (event) => {
-    event.preventDefault()
+  const handleShowComments = () => {
     setShowComments(current => !current)
   }
 
@@ -88,6 +88,7 @@ const MusicItem = ({ item }) => {
             <Rating name="half-rating" defaultValue={item.rating} precision={0.5} readOnly />
           </div>
         </div>
+        {item.likes.length > 0 && <LikesDisplay likes={item.likes} />}
         <div className="music-item__description">
           <p>{item.description}</p>
         </div>

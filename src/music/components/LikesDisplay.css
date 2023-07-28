@@ -1,0 +1,49 @@
+.likes {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  background: #ffffff91;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.likes span {
+  height: 24px;
+}
+
+.likes__end {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.likes svg {
+  margin-right: 5px;
+}
+
+.like-user {
+  text-decoration: none;
+  color: #1C274C;
+  height: 24px;
+  margin-right: 3px;
+  margin-left: 4px;
+}
+
+.like-user:hover {
+  background-color: #1c274c23;
+  border-radius: 5px;
+}
+
+.like-user__content {
+  display: flex;
+  height: 24px;
+  text-align: center;
+}
+
+.like-user img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.3rem;
+}

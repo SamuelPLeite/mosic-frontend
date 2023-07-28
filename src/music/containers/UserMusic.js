@@ -64,7 +64,7 @@ const UserMusic = () => {
 
   return <>
     {(isLoading || !loadedMusic) ?
-      <div className="center"><Loading /></div> :
+      <div className="center"><Loading asOverlay /></div> :
       <MusicList
         music={state.musicPosts}
         respins={state.userRespins}

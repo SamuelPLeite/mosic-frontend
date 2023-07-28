@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import Popover from '@mui/material/Popover'
 
-import { InfoIcon } from "./Icons"
+import { InfoIcon, InfoIconFilled } from "./Icons"
 
 import './InfoPopover.css'
 
@@ -38,7 +38,7 @@ const InfoPopover = ({ item }) => {
 
   return (<>
     <Link onClick={handleClick}>
-      <InfoIcon />
+      {open ? <InfoIconFilled /> : <InfoIcon />}
     </Link>
     <Popover
       id={id}

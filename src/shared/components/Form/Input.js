@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useReducer, useEffect, useImperativeHandle, forwardRef } from 'react'
 
 import { validate } from '../../Utils/validator'
 import './Input.css'
@@ -17,12 +17,19 @@ const inputReducer = (state, action) => {
         isTouched: true
       }
     }
+    case 'RESET': {
+      return {
+        value: '',
+        isValid: false,
+        isTouched: false
+      }
+    }
     default:
       return state
   }
 }
 
-const Input = ({ id, label, element, type, placeholder, rows, errorText, validators, initValue, initValid, onInput }) => {
+const Input = ({ id, label, element, type, placeholder, rows, errorText, validators, initValue, initValid, onInput }, ref) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: initValue || '',
     isValid: initValid || false,
@@ -44,6 +51,17 @@ const Input = ({ id, label, element, type, placeholder, rows, errorText, validat
       type: 'TOUCH'
     })
   }
+
+  const resetInput = () => {
+    dispatch({
+      type: 'RESET'
+    })
+    console.log("called?")
+  }
+
+  useImperativeHandle(ref, () => ({
+    resetInput,
+  }));
 
   const elementInput = element === 'input' ?
     <input
@@ -69,4 +87,4 @@ const Input = ({ id, label, element, type, placeholder, rows, errorText, validat
   </div>
 }
 
-export default Input
+export default forwardRef(Input)

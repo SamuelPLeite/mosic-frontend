@@ -30,7 +30,7 @@ const CommentItem = ({ item }) => {
     const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/comment/${item._id}`, 'delete', {},
       { Authorization: `bearer ${auth.token}` })
     if (response) {
-      const userMusicCopy = [...state.musicReposts]
+      const userMusicCopy = [...state.musicPosts]
       userMusicCopy.forEach(post => {
         if (post.id === item.musicPost) {
           post.comments = post.comments.filter(cmnt => cmnt._id !== item._id)

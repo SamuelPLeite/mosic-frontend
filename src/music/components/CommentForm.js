@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useRef } from "react"
 
 import Input from "../../shared/components/Form/Input"
 import Button from "../../shared/components/Form/Button"
@@ -15,6 +15,7 @@ const CommentForm = ({ postId }) => {
   const auth = useContext(UserContext)
   const [state, dispatch] = useContext(MusicContext)
   const { isLoading, error, sendReq, resetError } = useAxios()
+  const inputRef = useRef()
 
   const [formState, handleInput] = useForm(
     {
@@ -49,16 +50,19 @@ const CommentForm = ({ postId }) => {
       const { creator, id, ...rest } = response.comment
       const newComment = { _id: id, ...rest, creatorId }
       const userMusicCopy = [...state.musicPosts]
-      userMusicCopy.forEach(post => post.id === newComment.musicPost && post.comments.push(newComment))
+      userMusicCopy.forEach(post => post.id === newComment.musicPost && post.comments.unshift(newComment))
       userMusicCopy.forEach(post =>
-        post.comments.length > 1 && post.comments[post.comments.length - 1]._id === post.comments[post.comments.length - 2]._id && post.comments.pop()) // temporary fix for duplicate comment issue
+        post.comments.length > 1 && post.comments[post.comments.length - 1]._id === post.comments[post.comments.length - 2]._id && post.comments.shift()) // temporary fix for duplicate comment issue
       console.log(userMusicCopy)
       dispatch({
         type: "CHANGE_MUSICPOSTS",
         payload: userMusicCopy
       })
-      handleInput('comment', "dadada", false)
+      if (inputRef.current) {
+        inputRef.current.resetInput();
+      }
     }
+    event.target.reset()
   }
 
   return (<>
@@ -74,6 +78,7 @@ const CommentForm = ({ postId }) => {
         </div>
         <form className="comment-form__form" onSubmit={handleSubmit}>
           <Input
+            ref={inputRef}
             id="comment"
             type="text"
             label={auth.username}
