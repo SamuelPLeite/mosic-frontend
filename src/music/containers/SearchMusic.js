@@ -1,15 +1,18 @@
-import React, { useEffect, useContext } from "react"
+import React, { useEffect, useContext, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
 import MusicList from "../components/MusicList"
 import Loading from "../../shared/components/UIElements/Loading"
 import MusicContext from "../../shared/context/music-context"
+import PageTitle from "../../shared/components/UIElements/PageTitle"
 import { useAxios } from "../../shared/hooks/http"
 import { UserContext } from "../../shared/context/user-context"
 
 const SearchMusic = () => {
   const auth = useContext(UserContext)
   const [state, dispatch] = useContext(MusicContext)
+  const [titleText, setTitleText] = useState('some')
+  const [titleImg, setTitleImg] = useState(null)
   const { isLoading, sendReq } = useAxios()
 
   const [searchParams] = useSearchParams()
@@ -50,13 +53,40 @@ const SearchMusic = () => {
       getUserRespins()
   }, [auth.isLoggedIn, auth.token, sendReq, dispatch])
 
+  useEffect(() => {
+    const post = state.musicPosts[0]
+    if (post) {
+      const queryParams = Object.fromEntries([...searchParams])
+      if (queryParams.title) {
+        setTitleText(queryParams.title)
+        if (post.isSong) {
+          setTitleImg(post.info.album.cover_medium)
+        } else {
+          setTitleImg(post.info.cover_medium)
+        }
+      } else if (queryParams["album.title"]) {
+        setTitleText(queryParams["album.title"])
+        setTitleImg(post.info.album.cover_medium)
+      } else if (queryParams["record.type"]) {
+        setTitleText(queryParams["record.type"])
+        setTitleImg(post.info.artist.picture_medium)
+      } else if (queryParams["artist.name"]) {
+        setTitleText(queryParams["artist.name"])
+        setTitleImg(post.info.artist.picture_medium)
+      }
+    }
+  }, [searchParams, state.musicPosts])
+
   return <>
-    {(isLoading || state.musicPosts.length === 0 || state.uid) ?
+    {(isLoading || state.musicPosts.length === 0 || state.uid || !titleImg) ?
       <div className="center"><Loading /></div> :
-      <MusicList
-        music={state.musicPosts}
-        respins={state.userRespins}
-      />
+      <div className="page-container">
+        <PageTitle text={`Discover "${titleText}"`} image={titleImg} />
+        <MusicList
+          music={state.musicPosts}
+          respins={state.userRespins}
+        />
+      </div>
     }
   </>
 }

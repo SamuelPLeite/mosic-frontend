@@ -56,7 +56,6 @@ const Input = ({ id, label, element, type, placeholder, rows, errorText, validat
     dispatch({
       type: 'RESET'
     })
-    console.log("called?")
   }
 
   useImperativeHandle(ref, () => ({

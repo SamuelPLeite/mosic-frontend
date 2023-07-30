@@ -7,9 +7,8 @@
   top: 0;
   left: 0;
   background: rgb(28, 39, 76);
-  background: linear-gradient(120deg, rgba(28, 39, 76, 1) 60%, rgba(38, 160, 218, 1) 100%);
   /*background: linear-gradient(118deg, #043D48 0%, #4CBEE8 100%);*/
-  border-radius: 0% 0% 50% 50% / 10% 12% 24% 24%;
+  border-radius: 0 0 1rem 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.26);
   padding: 0 1rem;
   z-index: 11;
@@ -20,7 +19,7 @@
 }
 
 main {
-  margin-top: 6rem;
+  margin-top: 5rem;
 }
 
 @media (min-width: 768px) {

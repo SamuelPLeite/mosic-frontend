@@ -29,6 +29,26 @@ export const RespinIcon = () => {
   )
 }
 
+export const RespinIcon2 = () => {
+  return (
+    <SvgIcon>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={24}
+        fill="none"
+      >
+        <circle cx={12} cy={12} r={3} stroke="#1C274C" />
+        <path
+          stroke="#1C274C"
+          d="M7 17A7 7 0 017 7m10 0a6 6 0 011 4m-1 6a6 6 0 001-2"
+        />
+        <path stroke="#1C274C" d="M7 3a10 10 0 015-1 10 10 0 11-9 5" />
+      </svg>
+    </SvgIcon>
+  )
+}
+
 export const RespinIconGrey = () => {
   return (
     <SvgIcon>
@@ -232,6 +252,46 @@ export const InfoIconFilled = () => {
         <path
           d="M7 3.338A9.954 9.954 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"
           stroke="#1C274C"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+        />
+      </svg>
+    </SvgIcon>
+  )
+}
+
+export const PlayIcon = () => {
+  return (
+    <svg
+      width="800px"
+      height="800px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3 12v6.967c0 2.31 2.534 3.769 4.597 2.648l3.203-1.742M3 8V5.033c0-2.31 2.534-3.769 4.597-2.648l12.812 6.968a2.998 2.998 0 010 5.294l-6.406 3.484"
+        stroke="#inherit"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
+export const PauseIcon = () => {
+  return (
+    <SvgIcon>
+      <svg
+        width="800px"
+        height="800px"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2 18c0 1.886 0 2.828.586 3.414C3.172 22 4.114 22 6 22c1.886 0 2.828 0 3.414-.586C10 20.828 10 19.886 10 18V6c0-1.886 0-2.828-.586-3.414C8.828 2 7.886 2 6 2c-1.886 0-2.828 0-3.414.586C2 3.172 2 4.114 2 6v8M22 6c0-1.886 0-2.828-.586-3.414C20.828 2 19.886 2 18 2c-1.886 0-2.828 0-3.414.586C14 3.172 14 4.114 14 6v12c0 1.886 0 2.828.586 3.414C15.172 22 16.114 22 18 22c1.886 0 2.828 0 3.414-.586C22 20.828 22 19.886 22 18v-8"
+          stroke="inherit"
           strokeWidth={1.5}
           strokeLinecap="round"
         />

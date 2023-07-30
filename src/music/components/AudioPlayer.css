@@ -1,0 +1,26 @@
+.audio-player {
+  position: relative;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  z-index: 4;
+}
+
+.audio-player svg {
+  width: 50%;
+  height: 50%;
+  stroke: rgba(75, 75, 75, 0.774);
+
+}
+
+.audio-player__btn {
+  border-radius: 50%;
+  border: none;
+  background: rgba(63, 67, 75, 0.253);
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  width: 70%;
+  height: 70%;
+}

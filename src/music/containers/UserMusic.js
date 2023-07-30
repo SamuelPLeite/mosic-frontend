@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import MusicList from "../components/MusicList"
 import Loading from "../../shared/components/UIElements/Loading"
 import MusicContext from "../../shared/context/music-context"
+import PageTitle from "../../shared/components/UIElements/PageTitle"
 import { useAxios } from "../../shared/hooks/http"
 import { UserContext } from "../../shared/context/user-context"
 import './UserMusic.css'
@@ -12,6 +13,8 @@ const UserMusic = () => {
   const auth = useContext(UserContext)
   const [state, dispatch] = useContext(MusicContext)
   const [loadedMusic, setLoadedMusic] = useState(false)
+  const [titleText, setTitleText] = useState(':o')
+  const [titleImg, setTitleImg] = useState(null)
   const { isLoading, sendReq } = useAxios()
 
   const uid = useParams().uid
@@ -62,13 +65,33 @@ const UserMusic = () => {
       getUserRespins()
   }, [auth.isLoggedIn, auth.token, sendReq, uid, dispatch])
 
+
+  useEffect(() => {
+    if (uid === auth.userId) {
+      setTitleText(auth.username)
+      setTitleImg(auth.image)
+    }
+    else {
+      console.log(state.musicPosts)
+      const user = state.musicPosts.find(post => post.creatorId.id === uid)
+      if (user) {
+        setTitleText(user.creatorId.name)
+        setTitleImg(user.creatorId.image)
+      }
+    }
+  }, [uid, auth, state.musicPosts])
+
+
   return <>
-    {(isLoading || !loadedMusic) ?
+    {(isLoading || !loadedMusic || !titleImg) ?
       <div className="center"><Loading asOverlay /></div> :
-      <MusicList
-        music={state.musicPosts}
-        respins={state.userRespins}
-      />
+      <div className="page-container">
+        <PageTitle text={titleText + "'s"} image={titleImg} />
+        <MusicList
+          music={state.musicPosts}
+          respins={state.userRespins}
+        />
+      </div>
     }
   </>
 }

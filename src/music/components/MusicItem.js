@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react"
 import Rating from '@mui/material/Rating'
+import { Link } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
 
 import MusicItemActions from "./MusicItemActions"
@@ -11,7 +12,9 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import CommentList from "./CommentList"
 import DotMenu from "../../shared/components/UIElements/DotMenu"
 import LikesDisplay from "./LikesDisplay"
+import AudioPlayer from "./AudioPlayer"
 import { RespinIconGrey } from "./Icons"
+import vinylImg from '../../images/vinyl.png'
 import { UserContext } from "../../shared/context/user-context"
 import MusicContext from "../../shared/context/music-context"
 import { useAxios } from '../../shared/hooks/http'
@@ -24,6 +27,7 @@ const MusicItem = ({ item }) => {
   const [state, dispatch] = useContext(MusicContext)
   const [showDelete, setShowDelete] = useState(false)
   const [showComments, setShowComments] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const { isLoading, error, sendReq, resetError } = useAxios()
 
@@ -68,8 +72,10 @@ const MusicItem = ({ item }) => {
           <RespinIconGrey />
           <span>respun from</span>
         </div>}
-        <img src={process.env.REACT_APP_BACKEND_URL + item.creatorId.image} alt={item.creatorId.name} />
-        <span>{item.creatorId.name}</span>
+        <Link to={`/users/${item.creatorId.id}/music`}>
+          <img src={process.env.REACT_APP_BACKEND_URL + item.creatorId.image} alt={item.creatorId.name} />
+          <span>{item.creatorId.name}</span>
+        </Link>
       </div>
       <Card className="music-item__content">
         {isLoading && <Loading asOverlay />}
@@ -80,7 +86,11 @@ const MusicItem = ({ item }) => {
         />
         <div className="music-item__info">
           <div className="music-item__image">
-            <img src={item.image} alt={item.title} />
+            <img src={item.image} alt={item.title} className="cover" />
+            <img src={vinylImg} alt="" className={`vinyl ${isPlaying && 'vinyl__playing'}`} />
+            {item.info.preview &&
+              <AudioPlayer audioUrl={item.info.preview} handlePlaying={setIsPlaying} />
+            }
           </div>
           <div className="music-item__track">
             <h2>{item.title}</h2>

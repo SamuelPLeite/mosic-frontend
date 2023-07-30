@@ -3,8 +3,9 @@
   align-items: center;
   border-radius: 5px;
   background: #ffffff91;
-  padding: 0.5rem;
+  padding: 5px;
   margin-top: 0.5rem;
+  box-sizing: content-box;
 }
 
 .likes span {
@@ -22,9 +23,13 @@
 }
 
 .like-user {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
   text-decoration: none;
   color: #1C274C;
-  height: 24px;
+  height: 30px;
+  padding: 3px;
   margin-right: 3px;
   margin-left: 4px;
 }

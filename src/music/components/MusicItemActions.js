@@ -5,7 +5,7 @@ import Loading from "../../shared/components/UIElements/Loading"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import InfoPopover from "./InfoPopover"
 import {
-  RespinIcon, RespinIconFilled,
+  RespinIcon, RespinIconFilled, RespinIcon2,
   LikeIcon, LikeIconFilled,
   CommentIcon, CommentIconFilled
 } from "./Icons"
@@ -52,7 +52,11 @@ const MusicItemActions = ({ item, handleShowComments }) => {
           })
         } else {
           const post = state.musicPosts.find(m => m.id === item.id)
-          const respinPost = { ...post, respinId: response.music.respinId }
+          const respinPost = {
+            ...post,
+            comments: JSON.parse(JSON.stringify(post.comments)),
+            respinId: response.music.respinId
+          }
           dispatch({
             type: "CHANGE_MUSICPOSTS",
             payload: [respinPost].concat(state.musicPosts)

@@ -51,9 +51,6 @@ const CommentForm = ({ postId }) => {
       const newComment = { _id: id, ...rest, creatorId }
       const userMusicCopy = [...state.musicPosts]
       userMusicCopy.forEach(post => post.id === newComment.musicPost && post.comments.unshift(newComment))
-      userMusicCopy.forEach(post =>
-        post.comments.length > 1 && post.comments[post.comments.length - 1]._id === post.comments[post.comments.length - 2]._id && post.comments.shift()) // temporary fix for duplicate comment issue
-      console.log(userMusicCopy)
       dispatch({
         type: "CHANGE_MUSICPOSTS",
         payload: userMusicCopy
