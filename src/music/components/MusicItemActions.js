@@ -5,7 +5,7 @@ import Loading from "../../shared/components/UIElements/Loading"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import InfoPopover from "./InfoPopover"
 import {
-  RespinIcon, RespinIconFilled, RespinIcon2,
+  RespinIcon, RespinIconFilled,
   LikeIcon, LikeIconFilled,
   CommentIcon, CommentIconFilled
 } from "./Icons"

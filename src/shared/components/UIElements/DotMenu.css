@@ -1,3 +1,7 @@
 .more-menu {
   font-family: 'Manrope', sans-serif;
 }
+
+.MuiList-root {
+  background: #d5e6f59d;
+}

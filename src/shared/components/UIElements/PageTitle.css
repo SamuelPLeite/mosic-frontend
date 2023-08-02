@@ -18,6 +18,10 @@
   object-fit: cover;
 }
 
+.page-title__text {
+  text-align: center;
+}
+
 .page-title__image {
   display: flex;
   position: relative;

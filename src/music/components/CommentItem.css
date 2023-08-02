@@ -1,21 +1,31 @@
 .comment-item {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: 1.5rem;
-  border-bottom: 1px solid #8ca3a4;
+  border-bottom: 1px solid #1a3a7575;
 }
 
 .comment-item .more-menu {
-  position: absolute;
-  right: 0;
-  margin-right: 3rem;
+  margin-left: auto;
 }
 
 .comment-item__user {
   display: flex;
   align-items: center;
-  margin-right: 1rem;
+}
+
+.comment-item__user a {
+  display: flex;
+  align-items: center;
   font-weight: bold;
+  text-decoration: none;
+  color: #1C274C;
+  padding: 4px;
+}
+
+.comment-item__user a:hover {
+  background-color: #1c274c23;
+  border-radius: 5px;
 }
 
 .comment-item__user img {
@@ -24,4 +34,16 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 0.5rem;
+}
+
+.comment-item__content {
+  padding: 0.5rem;
+  border-radius: 5px;
+  word-wrap: break-word;
+}
+
+@media(max-width: 768px) {
+  .comment-item {
+    padding: 1rem;
+  }
 }

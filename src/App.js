@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useLocation, Routes, Route, Navigate } from 'react-router-dom';
 
 import MainNavigation from './shared/components/Navigation/MainNavigation';
+import Welcome from './information/containers/Welcome';
 import Users from "./users/containers/Users"
 import PostMusic from './music/containers/PostMusic';
 import UserMusic from './music/containers/UserMusic';
@@ -14,6 +15,12 @@ import { useAuth } from './shared/hooks/auth';
 
 const App = () => {
   const { login, logout, token, userId, image, username } = useAuth()
+  const location = useLocation();
+
+  const shouldDisplayHeaderFooter = () => {
+    const pathWithoutSlash = location.pathname.replace(/^\/|\/$/g, '')
+    return pathWithoutSlash !== ''
+  }
 
   let routes
 
@@ -23,7 +30,8 @@ const App = () => {
       <Route path="/music/new" element={<PostMusic />} />
       <Route path="/music/search" element={<MusicContextProvider><SearchMusic /></MusicContextProvider>} />
       <Route path="/music/:mId" element={<UpdateMusic />} />
-      <Route path="/" element={<Users />} />
+      <Route path="/users" element={<Users />} />
+      <Route path="/" element={<Welcome />} />
       <Route path="*" element={<Navigate to="/" />} />
     </>
   } else {
@@ -31,7 +39,8 @@ const App = () => {
       <Route path="/users/:uid/music" element={<MusicContextProvider><UserMusic /></MusicContextProvider>} />
       <Route path="/music/search" element={<MusicContextProvider><SearchMusic /></MusicContextProvider>} />
       <Route path="/login" element={<Auth />} />
-      <Route path="/" element={<Users />} />
+      <Route path="/users" element={<Users />} />
+      <Route path="/" element={<Welcome />} />
       <Route path="*" element={<Navigate to="/login" />} />
     </>
   }
@@ -48,14 +57,12 @@ const App = () => {
         logout: logout
       }
     }>
-      <Router>
-        <MainNavigation />
-        <main>
-          <Routes>
-            {routes}
-          </Routes>
-        </main>
-      </Router>
+      {shouldDisplayHeaderFooter() && <MainNavigation />}
+      <main>
+        <Routes>
+          {routes}
+        </Routes>
+      </main>
     </UserContext.Provider>
   )
 }

@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react"
-import DotMenu from "../../shared/components/UIElements/DotMenu"
+import { Link } from "react-router-dom"
 
 import Button from "../../shared/components/Form/Button"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import Modal from "../../shared/components/UIElements/Modal"
+import DotMenu from "../../shared/components/UIElements/DotMenu"
 import { UserContext } from "../../shared/context/user-context"
 import MusicContext from "../../shared/context/music-context"
 import { useAxios } from '../../shared/hooks/http'
@@ -57,14 +58,18 @@ const CommentItem = ({ item }) => {
     </Modal>
     <li className="comment-item">
       <div className="comment-item__user">
-        <img
-          src={process.env.REACT_APP_BACKEND_URL + item.creatorId.image}
-          alt={item.creatorId.name}
-        />
-        <span>{item.creatorId.name}:</span>
+        <Link to={`/users/${item.creatorId.id}/music`}>
+          <img
+            src={process.env.REACT_APP_BACKEND_URL + item.creatorId.image}
+            alt={item.creatorId.name}
+          />
+          <span>{item.creatorId.name}:</span>
+        </Link>
+        {auth.userId === item.creatorId.id &&
+          <DotMenu onDelete={handleShowDelete} />}
       </div>
-      {item.content}
-      <DotMenu onDelete={handleShowDelete} />
+      <span className="comment-item__content">{item.content}</span>
+
     </li>
   </>)
 }

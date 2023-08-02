@@ -79,7 +79,7 @@ const SearchMusic = () => {
 
   return <>
     {(isLoading || state.musicPosts.length === 0 || state.uid || !titleImg) ?
-      <div className="center"><Loading /></div> :
+      <div className="center"><Loading asOverlay /></div> :
       <div className="page-container">
         <PageTitle text={`Discover "${titleText}"`} image={titleImg} />
         <MusicList

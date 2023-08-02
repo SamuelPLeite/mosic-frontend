@@ -1,0 +1,466 @@
+.welcome-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(28, 39, 76);
+}
+
+.welcome-page__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+  max-width: 50rem;
+  background: rgb(28, 39, 76);
+  box-shadow: 8px 8px 23px #161e3b,
+    -8px -8px 23px #22305d;
+  z-index: 1;
+  overflow-y: scroll;
+  /* Enable vertical scroll */
+  overflow-x: hidden;
+}
+
+.welcome-page__text {
+  /* background: #cde2f4; */
+  background-image: linear-gradient(90deg, rgb(221, 227, 233) 0%, rgba(205, 226, 244, 1) 50%, rgb(221, 227, 233) 100%);
+  background-size: 200% auto;
+  transition: all 0.25s;
+  white-space: pre-wrap;
+  line-height: 1.7;
+  color: #161e3b;
+  margin-top: 1rem;
+  border-radius: 5px;
+  padding: 2rem;
+}
+
+.welcome-page__text:hover {
+  outline: 3px #4f556d solid;
+  background-position: right center;
+}
+
+.welcome-page-p1__highlight {
+  background-image: linear-gradient(to left, #00d2ff 0%, #a858ff 50%, #00d2ff 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.25s;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.welcome-page__text:hover .welcome-page-p1__highlight,
+.welcome-page__text:active .welcome-page-p1__highlight {
+  background-position: right center;
+}
+
+.welcome-page-p2 {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-page-p2__icons {
+  display: flex;
+  flex-direction: column;
+  margin: 0 2rem;
+}
+
+.welcome-page-p2__icons svg {
+  width: 2rem;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-page-p2__pitch {
+  padding: 2rem;
+  font-style: italic;
+  font-size: 15px;
+}
+
+/* keyframes defined in MusicItemActions.css */
+
+.welcome-page-p2:hover #p2-respin {
+  animation-name: rotate;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.welcome-page-p2:hover #p2-like {
+  animation-name: shake;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.welcome-page-p2:hover #p2-comment {
+  animation-name: comment;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.welcome-page-p2:hover #p2-info {
+  animation-name: info;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.welcome-page__cover {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.welcome-page__cover .music-item__image {
+  width: 40%;
+  flex-grow: 2;
+}
+
+.welcome-page__btn {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  width: 10rem;
+  height: 10rem;
+  margin-bottom: 3rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #192344, #1e2a51);
+  box-shadow: 5px 5px 10px #182141,
+    -5px -5px 10px #202d57;
+}
+
+.welcome-page__btn span {
+  font-size: 2rem;
+}
+
+.welcome-page__btn-highlight {
+  background-image: linear-gradient(to left, #00d2ff 0%, #a858ff 50%, #00d2ff 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.25s;
+  font-weight: 800;
+}
+
+.welcome-page__btn:hover .welcome-page__btn-highlight {
+  background-position: right center;
+}
+
+.welcome-page__btn2 {
+  left: 0;
+  top: 0;
+  width: 6rem;
+  height: 6rem;
+  margin: 2rem;
+}
+
+.welcome-page__btn2 span {
+  font-size: 2rem;
+}
+
+.welcome-page__enter {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 15rem;
+  height: 5rem;
+  margin: 2rem;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #192344, #1e2a51);
+  box-shadow: 5px 5px 10px #182141,
+    -5px -5px 10px #202d57;
+}
+
+.welcome-page__enter span {
+  padding: 1rem;
+  font-size: 2rem;
+}
+
+.welcome-page__enter-highlight {
+  background-image: linear-gradient(to left, #00d2ff 0%, #a858ff 50%, #00d2ff 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.25s;
+  font-weight: 800;
+}
+
+.welcome-page__enter:hover .welcome-page__enter-highlight {
+  background-position: right center;
+}
+
+.welcome-page-title svg {
+  fill: none;
+  stroke: url(#grad2);
+  width: 15rem;
+  height: 15rem;
+}
+
+.welcome-page-title2 svg {
+  width: 5rem;
+  height: 5rem;
+}
+
+.welcome-page-title {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto 1rem;
+  font-weight: 400;
+  font-size: 7rem;
+  color: rgba(0, 8, 24);
+  transition: all 0.5s ease;
+}
+
+.welcome-page-title2 {
+  --translate-x: calc((50vw - 125px - 1rem) * -1);
+  --translate-y: calc(50vh - 40px - 1rem);
+  transform: translate(var(--translate-x), var(--translate-y));
+  font-size: 3rem;
+}
+
+.welcome-page-title__image {
+  display: flex;
+  position: relative;
+  margin-right: 2rem;
+}
+
+.welcome-page-title__text {
+  text-align: center;
+}
+
+.welcome-page-title__highlight {
+  background-image: linear-gradient(to left, #00d2ff 0%, #a858ff 50%, #00d2ff 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.25s;
+  font-weight: 800;
+}
+
+.welcome-page-title:hover .welcome-page-title__highlight {
+  background-position: right center;
+}
+
+.slide-up-exit-active .welcome-page-title__highlight {
+  background-image: none;
+  background-color: white;
+}
+
+.slide-up-exit-active .welcome-page-title {
+  font-size: 2rem;
+  translate: -2.5rem;
+}
+
+.slide-up-exit-active .welcome-page-title__image {
+  display: none;
+}
+
+.welcome-page__content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.welcome-page__content::-webkit-scrollbar-track {
+  background-color: #e0f2ff;
+  border-radius: 5px;
+}
+
+.welcome-page__content::-webkit-scrollbar-thumb {
+  background-color: rgb(28, 39, 76);
+  border-radius: 5px;
+}
+
+.welcome-page-title:hover svg {
+  animation: rotateAnimation 0.25s linear;
+  transform: rotate(180deg);
+}
+
+.welcome-page-title:not(:hover) svg {
+  animation: reverseRotateAnimation 0.25s linear;
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes reverseRotateAnimation {
+  0% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.slide-up-enter {
+  transform: translateY(-10rem);
+  opacity: 0;
+}
+
+.slide-up-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 200ms;
+}
+
+.slide-up-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.slide-up-exit-active {
+  --translate-y2: calc((100vh - 5rem)*-1);
+  transform: translateY(var(--translate-y2));
+  opacity: 1;
+  transition: all 500ms;
+}
+
+@media (max-width: 1380px) {
+  .welcome-page__content {
+    margin-bottom: 7rem;
+  }
+
+  .welcome-page__enter {
+    margin: 1rem;
+  }
+
+  .welcome-page__btn2 {
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-page-title {
+    font-size: 3rem;
+  }
+
+  .welcome-page-title svg {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .welcome-page-title2 {
+    --translate-x: calc((50vw - 78px - 0.5rem) * -1);
+    --translate-y: calc(50vh - 24px - 1.5rem);
+    transform: translate(var(--translate-x), var(--translate-y));
+    font-size: 2rem;
+  }
+
+  .welcome-page-title2 svg {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .welcome-page-title__image {
+    margin-right: 1rem;
+  }
+
+  .welcome-page-title__image::before {
+    padding: 0.2rem;
+  }
+
+  .welcome-page__enter {
+    width: 11rem;
+    height: 4rem;
+    margin: 1rem;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #192344, #1e2a51);
+    box-shadow: 5px 5px 10px #182141,
+      -5px -5px 10px #202d57;
+  }
+
+  .welcome-page__enter span {
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .welcome-page__content {
+    margin-bottom: 6rem;
+    margin-top: 6rem;
+  }
+
+  .welcome-page__btn2 {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .welcome-page__btn2 span {
+    font-size: 1.5rem;
+  }
+}
+
+@media(max-height: 690px) {
+  .welcome-page__content {
+    margin-bottom: 5.5rem;
+    margin-top: 6rem;
+  }
+
+  .welcome-page__btn {
+    margin-bottom: 1rem;
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .welcome-page__btn2 {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .welcome-page__btn span {
+    font-size: 1.5rem;
+  }
+
+  .welcome-page-title2 {
+    --translate-x: calc((50vw - 78px - 1rem) * -1);
+    --translate-y: calc(50vh - 24px - 1rem);
+    transform: translate(var(--translate-x), var(--translate-y));
+    font-size: 2rem;
+  }
+
+  .welcome-page-title2 svg {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .welcome-page__enter {
+    width: 11rem;
+    height: 4rem;
+    margin: 1rem;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #192344, #1e2a51);
+    box-shadow: 5px 5px 10px #182141,
+      -5px -5px 10px #202d57;
+  }
+
+  .welcome-page__enter span {
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+}

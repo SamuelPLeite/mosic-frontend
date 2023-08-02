@@ -14,12 +14,13 @@ const UserMusic = () => {
   const [state, dispatch] = useContext(MusicContext)
   const [loadedMusic, setLoadedMusic] = useState(false)
   const [titleText, setTitleText] = useState(':o')
-  const [titleImg, setTitleImg] = useState(null)
+  const [titleImg, setTitleImg] = useState('')
   const { isLoading, sendReq } = useAxios()
 
   const uid = useParams().uid
 
   useEffect(() => {
+    setTitleImg('')
     dispatch({
       type: "CHANGE_UID",
       payload: uid
@@ -42,7 +43,7 @@ const UserMusic = () => {
             payload: response.userMusic
           })
         }
-        setLoadedMusic(true) // ALERT ALERT ALERT ALERT
+        setLoadedMusic(true) // ALERT ALERT ALERT ALERT (REAL ALERT)
       }
     }
     getUserMusic()

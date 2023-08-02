@@ -79,11 +79,6 @@ const MusicItem = ({ item }) => {
       </div>
       <Card className="music-item__content">
         {isLoading && <Loading asOverlay />}
-        <DotMenu
-          labels={["Edit post"]}
-          links={[`/music/${item.id}`]}
-          onDelete={handleShowDelete}
-        />
         <div className="music-item__info">
           <div className="music-item__image">
             <img src={item.image} alt={item.title} className="cover" />
@@ -97,6 +92,11 @@ const MusicItem = ({ item }) => {
             <h3>{item.artist}</h3>
             <Rating name="half-rating" defaultValue={item.rating} precision={0.5} readOnly />
           </div>
+          <DotMenu
+            labels={["Edit post"]}
+            links={[`/music/${item.id}`]}
+            onDelete={handleShowDelete}
+          />
         </div>
         {item.likes.length > 0 && <LikesDisplay likes={item.likes} />}
         <div className="music-item__description">

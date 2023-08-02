@@ -67,7 +67,7 @@ const CommentForm = ({ postId }) => {
     {isLoading && <Loading asOverlay />}
     {auth.isLoggedIn ?
       <li className="comment-form">
-        <div className="comment-item__user">
+        <div className="comment-form__user">
           <img
             src={process.env.REACT_APP_BACKEND_URL + auth.image}
             alt={auth.username}
