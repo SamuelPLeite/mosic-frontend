@@ -13,14 +13,11 @@ const UserMusic = () => {
   const auth = useContext(UserContext)
   const [state, dispatch] = useContext(MusicContext)
   const [loadedMusic, setLoadedMusic] = useState(false)
-  const [titleText, setTitleText] = useState(':o')
-  const [titleImg, setTitleImg] = useState('')
   const { isLoading, sendReq } = useAxios()
 
   const uid = useParams().uid
 
   useEffect(() => {
-    setTitleImg('')
     dispatch({
       type: "CHANGE_UID",
       payload: uid
@@ -32,17 +29,17 @@ const UserMusic = () => {
       setLoadedMusic(false)
       const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/user/${uid}`)
       if (response) {
-        if (response.error === 404) {
-          dispatch({
-            type: "CHANGE_MUSICPOSTS",
-            payload: []
-          })
-        } else {
-          dispatch({
-            type: "CHANGE_MUSICPOSTS",
-            payload: response.userMusic
-          })
-        }
+        dispatch({
+          type: "CHANGE_MUSICPOSTS",
+          payload: response.userMusic.posts
+        })
+        dispatch({
+          type: "CHANGE_USER",
+          payload: {
+            username: response.userMusic.name,
+            image: response.userMusic.image
+          }
+        })
         setLoadedMusic(true) // ALERT ALERT ALERT ALERT (REAL ALERT)
       }
     }
@@ -66,28 +63,11 @@ const UserMusic = () => {
       getUserRespins()
   }, [auth.isLoggedIn, auth.token, sendReq, uid, dispatch])
 
-
-  useEffect(() => {
-    if (uid === auth.userId) {
-      setTitleText(auth.username)
-      setTitleImg(auth.image)
-    }
-    else {
-      console.log(state.musicPosts)
-      const user = state.musicPosts.find(post => post.creatorId.id === uid)
-      if (user) {
-        setTitleText(user.creatorId.name)
-        setTitleImg(user.creatorId.image)
-      }
-    }
-  }, [uid, auth, state.musicPosts])
-
-
   return <>
-    {(isLoading || !loadedMusic || !titleImg) ?
+    {(isLoading || !loadedMusic) ?
       <div className="center"><Loading asOverlay /></div> :
       <div className="page-container">
-        <PageTitle text={titleText + "'s"} image={titleImg} />
+        <PageTitle text={state.user.username + "'s"} image={state.user.image} isUser={true} />
         <MusicList
           music={state.musicPosts}
           respins={state.userRespins}

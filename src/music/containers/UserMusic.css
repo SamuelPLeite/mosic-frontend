@@ -1,11 +1,5 @@
 @media (min-width: 768px) {
   .page-container {
-    max-width: 70rem;
-    min-height: 100vh;
-    margin: 1rem auto;
     padding-top: 1rem;
-    background-color: #cde2f4;
-    box-shadow: 14px 14px 64px #aec0cf,
-      -14px -14px 64px #ecffff;
   }
 }

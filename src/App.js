@@ -58,7 +58,7 @@ const App = () => {
       }
     }>
       {shouldDisplayHeaderFooter() && <MainNavigation />}
-      <main>
+      <main style={{ marginTop: shouldDisplayHeaderFooter() ? '6rem' : 0 }}>
         <Routes>
           {routes}
         </Routes>

@@ -15,6 +15,17 @@
 
 .music-item__info {
   display: flex;
+  color: rgba(0, 8, 24, 0.897);
+}
+
+.music-item__info h2 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.music-item__info h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
 .music-item__content .more-menu {
@@ -77,6 +88,7 @@
   width: 40%;
   aspect-ratio: 1 / 1;
   margin-right: 3%;
+  flex-shrink: 0;
 }
 
 .cover {
@@ -168,6 +180,16 @@
   .music-item__image {
     width: 120px;
     height: 120px;
+  }
+
+  .music-item__info h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .music-item__info h3 {
+    font-size: 1rem;
+    font-weight: 400;
   }
 
 }

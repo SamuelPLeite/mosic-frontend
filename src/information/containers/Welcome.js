@@ -5,11 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { RespinIcon, LikeIcon, CommentIcon, InfoIcon, RespinSymbol } from "../../music/components/Icons";
 import Card from "../../shared/components/UIElements/Card";
 import HoverPopup from "../../shared/components/UIElements/HoverPopup";
-import vinylImg from '../../images/vinyl.png'
 import './Welcome.css'
-
-
-const coverUrl = 'https://e-cdns-images.dzcdn.net/images/cover/e2ac7d977a3a3c3dff1d5aa7ee30706e/500x500-000000-80-0-0.jpg'
 
 const Welcome = () => {
   const [stage, setStage] = useState(0)

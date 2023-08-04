@@ -52,3 +52,34 @@
   object-fit: cover;
   margin-right: 0.3rem;
 }
+
+@media (max-width: 768px) {
+  .likes {
+    font-size: 14px;
+    padding: 1px;
+  }
+
+  .likes span {
+    height: 24px;
+  }
+
+  .likes svg {
+    margin-right: 0;
+    margin-left: 3px;
+  }
+
+  .like-user {
+    margin-right: 0;
+  }
+
+  .like-user img {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.3rem;
+  }
+
+  .likes svg {
+    width: 20px;
+    height: 20px;
+  }
+}

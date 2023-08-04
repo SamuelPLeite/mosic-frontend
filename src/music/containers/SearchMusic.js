@@ -11,7 +11,7 @@ import { UserContext } from "../../shared/context/user-context"
 const SearchMusic = () => {
   const auth = useContext(UserContext)
   const [state, dispatch] = useContext(MusicContext)
-  const [titleText, setTitleText] = useState('some')
+  const [titleText, setTitleText] = useState('')
   const [titleImg, setTitleImg] = useState(null)
   const { isLoading, sendReq } = useAxios()
 
@@ -54,6 +54,7 @@ const SearchMusic = () => {
   }, [auth.isLoggedIn, auth.token, sendReq, dispatch])
 
   useEffect(() => {
+    setTitleText('')
     const post = state.musicPosts[0]
     if (post) {
       const queryParams = Object.fromEntries([...searchParams])
@@ -73,15 +74,17 @@ const SearchMusic = () => {
       } else if (queryParams["artist.name"]) {
         setTitleText(queryParams["artist.name"])
         setTitleImg(post.info.artist.picture_medium)
+      } else { // default case
+        setTitleText('some')
       }
     }
   }, [searchParams, state.musicPosts])
 
   return <>
-    {(isLoading || state.musicPosts.length === 0 || state.uid || !titleImg) ?
+    {(isLoading || !titleText) ?
       <div className="center"><Loading asOverlay /></div> :
       <div className="page-container">
-        <PageTitle text={`Discover "${titleText}"`} image={titleImg} />
+        <PageTitle text={`${titleText}`} image={titleImg} isUser={false} />
         <MusicList
           music={state.musicPosts}
           respins={state.userRespins}

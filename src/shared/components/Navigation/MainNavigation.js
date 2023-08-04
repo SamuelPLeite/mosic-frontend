@@ -6,6 +6,7 @@ import MainHeader from "./MainHeader";
 import SideDrawer from "./SideDrawer";
 import NavLinks from "./NavLinks";
 import Backdrop from "../UIElements/Backdrop";
+import { RespinSymbol } from "../../../music/components/Icons";
 
 const MainNavigation = () => {
   const [drawerDisplay, setDrawerDisplay] = useState(false)
@@ -33,7 +34,10 @@ const MainNavigation = () => {
           <span />
         </button>
         <h1 className="main-navigation__title">
-          <Link to="/">Mosic</Link>
+          <Link to="/">
+            <RespinSymbol />
+            <span>Mosic</span>
+          </Link>
         </h1>
         <nav className="main-navigation__header-nav">
           <NavLinks />

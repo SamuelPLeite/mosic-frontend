@@ -17,6 +17,11 @@ const musicReducer = (state, action) => {
         ...state,
         uid: action.payload
       }
+    case "CHANGE_USER":
+      return {
+        ...state,
+        user: action.payload
+      }
     default:
       return state
   }
@@ -25,6 +30,10 @@ const musicReducer = (state, action) => {
 const initialState = {
   musicPosts: [],
   userRespins: [],
+  user: {
+    username: '',
+    image: ''
+  },
   uid: ''
 }
 

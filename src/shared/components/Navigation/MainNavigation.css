@@ -22,9 +22,29 @@
 }
 
 .main-navigation__title a {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: white;
+}
 
+.main-navigation__title a svg {
+  fill: none;
+  stroke: url(#grad2);
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
+/* rotate and reverse defined in Welcome.css */
+
+.main-navigation__title:hover a svg {
+  animation: rotateAnimation 0.25s linear;
+  transform: rotate(180deg);
+}
+
+.main-navigation__title:not(:hover) a svg {
+  animation: reverseRotateAnimation 0.25s linear;
 }
 
 .main-navigation__header-nav {
@@ -42,5 +62,20 @@
 
   .main-navigation__header-nav {
     display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-navigation__title {
+    margin-left: auto;
+  }
+
+  .main-navigation__title a {
+    flex-direction: row-reverse;
+  }
+
+  .main-navigation__title a svg {
+    margin-right: 0;
+    margin-left: 0.5rem;
   }
 }

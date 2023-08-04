@@ -12,9 +12,24 @@ const UsersList = ({ users }) => {
     )
 
 
-  return <ul className="users-list">
-    {users.map(user => <UserItem key={user.id} user={user} />)}
-  </ul>
+  return <>
+    <div className="page-title">
+      <span className="page-title__text">
+        <span className="page-title__highlight">
+          Discover{" "}
+        </span>
+        <span>
+          what people are{" "}
+          <span className="page-title__highlight">
+            spinning
+          </span>
+        </span>
+      </span>
+    </div>
+    <ul className="users-list">
+      {users.map(user => <UserItem key={user.id} user={user} />)}
+    </ul>
+  </>
 }
 
 export default UsersList

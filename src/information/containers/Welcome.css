@@ -267,14 +267,27 @@
   background-color: white;
 }
 
-.slide-up-exit-active .welcome-page-title {
-  font-size: 2rem;
-  translate: -2.5rem;
+/* applying transformations to title while it is under
+the CSSTransition animation, so it (mostly) matches the Header */
+
+@media (min-width: 768px) {
+
+  .slide-up-exit-active .welcome-page-title {
+    font-size: 2rem;
+    translate: -3rem 1rem;
+  }
+
+  .slide-up-exit-active .welcome-page-title__image {
+    margin-right: 1rem;
+  }
+
+  .slide-up-exit-active .welcome-page-title2 svg {
+    width: 3rem;
+    height: 3rem;
+  }
 }
 
-.slide-up-exit-active .welcome-page-title__image {
-  display: none;
-}
+/* --- */
 
 .welcome-page__content::-webkit-scrollbar {
   width: 10px;
