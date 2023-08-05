@@ -12,7 +12,7 @@ const CommentList = ({ comments, postId }) => {
         <CommentForm key={"comment-form" + postId} postId={postId} />
         {comments.map(comment =>
           <CommentItem
-            key={comment._id}
+            key={comment.id}
             item={comment}
           />)}
       </ul>

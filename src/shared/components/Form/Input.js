@@ -29,7 +29,7 @@ const inputReducer = (state, action) => {
   }
 }
 
-const Input = ({ id, label, element, type, placeholder, rows, errorText, validators, initValue, initValid, onInput }, ref) => {
+const Input = ({ id, label, element, type, placeholder, rows, errorText, validators, initValue, initValid, onInput, disabled }, ref) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: initValue || '',
     isValid: initValid || false,
@@ -39,7 +39,7 @@ const Input = ({ id, label, element, type, placeholder, rows, errorText, validat
   const { value, isValid } = inputState
 
   useEffect(() => {
-    onInput(id, value, isValid)
+    onInput && onInput(id, value, isValid)
   }, [id, value, isValid, onInput])
 
   const handleChange = event => {
@@ -70,6 +70,7 @@ const Input = ({ id, label, element, type, placeholder, rows, errorText, validat
       onChange={handleChange}
       onBlur={handleTouch}
       value={inputState.value}
+      disabled={disabled}
     />
     : <textarea
       id={id}

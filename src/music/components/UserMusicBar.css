@@ -1,0 +1,43 @@
+.user-music__bar {
+  display: flex;
+  margin: 4rem auto 2rem;
+  width: 90%;
+  max-width: 40rem;
+  border-radius: 5px;
+  background: linear-gradient(326deg, rgba(239, 225, 244, 1) 0%, rgba(202, 231, 240, 1) 100%);
+  box-shadow: 6px 6px 15px 1px rgba(7, 40, 77, 0.2);
+  -webkit-box-shadow: 6px 6px 15px 1px rgba(7, 40, 77, 0.2);
+  -moz-box-shadow: 6px 6px 15px 1px rgba(7, 40, 77, 0.2);
+}
+
+.user-music__bar div {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.user-music__bar div:hover {
+  background-color: rgba(150, 170, 226, 0.295);
+}
+
+.user-music__bar div:active,
+.user-music__bar div.active {
+  background-color: rgba(150, 170, 226, 0.5);
+}
+
+.user-music__bar .post-icon {
+  border-right: 1px solid #8ca3a4;
+  border-radius: 5px 0 0 5px;
+}
+
+.user-music__bar .like-icon {
+  border-radius: 0 5px 5px 0;
+}
+
+@media (max-width: 768px) {
+  .user-music__bar {
+    margin: 2rem auto 2rem;
+  }
+}

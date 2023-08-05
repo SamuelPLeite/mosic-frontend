@@ -62,10 +62,8 @@ export const RespinIconFilled = () => {
   return (
     <SvgIcon>
       <svg
-        width="24px"
-        height="24px"
         viewBox="0 0 24 24"
-        fill="#293a7085"
+        fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <circle cx={12} cy={12} r={3} stroke="#1C274C" strokeWidth={1.5} />
@@ -80,6 +78,7 @@ export const RespinIconFilled = () => {
           stroke="#1C274C"
           strokeWidth={1.5}
           strokeLinecap="round"
+          fill="rgba(28,39,76,.54)"
         />
       </svg>
     </SvgIcon>

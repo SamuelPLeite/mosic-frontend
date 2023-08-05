@@ -13,12 +13,14 @@ const SearchMusic = () => {
   const [state, dispatch] = useContext(MusicContext)
   const [titleText, setTitleText] = useState('')
   const [titleImg, setTitleImg] = useState(null)
+  const [loadedMusic, setLoadedMusic] = useState(false)
   const { isLoading, sendReq } = useAxios()
 
   const [searchParams] = useSearchParams()
 
   useEffect(() => {
     const getSearchMusic = async () => {
+      setLoadedMusic(false)
       const queryParams = Object.fromEntries([...searchParams])
       const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/search`, 'get', null,
         {}, queryParams)
@@ -31,6 +33,7 @@ const SearchMusic = () => {
           type: "CHANGE_UID",
           payload: ''
         })
+        setLoadedMusic(true)
       }
     }
     getSearchMusic()
@@ -81,7 +84,7 @@ const SearchMusic = () => {
   }, [searchParams, state.musicPosts])
 
   return <>
-    {(isLoading || !titleText) ?
+    {(isLoading || !loadedMusic || !titleText) ?
       <div className="center"><Loading asOverlay /></div> :
       <div className="page-container">
         <PageTitle text={`${titleText}`} image={titleImg} isUser={false} />

@@ -1,6 +1,6 @@
 .music-form {
   list-style: none;
-  margin: 0 auto;
+  margin: 2rem auto 0;
   padding: 1rem;
   width: 90%;
   max-width: 40rem;
@@ -99,6 +99,10 @@
 }
 
 @media (max-width: 768px) {
+  .music-form {
+    margin-top: 1rem;
+  }
+
   .music-form__details-image {
     width: 150px;
     height: 150px;

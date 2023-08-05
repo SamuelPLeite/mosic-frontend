@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import Rating from '@mui/material/Rating'
 
 import Input from '../../shared/components/Form/Input'
 import Button from '../../shared/components/Form/Button'
 import Loading from '../../shared/components/UIElements/Loading'
 import ErrorModal from '../../shared/components/UIElements/ErrorModal'
-import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../shared/Utils/validator'
+import { VALIDATOR_MINLENGTH } from '../../shared/Utils/validator'
 import { useForm } from '../../shared/hooks/form'
 import { useAxios } from '../../shared/hooks/http'
 import { UserContext } from '../../shared/context/user-context'
@@ -70,26 +71,65 @@ const UpdateMusic = () => {
     return <div className="center"><h1>Invalid music ID.</h1></div>
   }
 
+  if (musicToUpdate.creatorId.id !== auth.id) {
+    return (<div className="page-title">
+      <span className="page-title__text">
+        You can't edit this post!
+      </span>
+    </div>)
+  }
+
   return <>
     <ErrorModal error={error} onClear={resetError} />
+    <div className="page-title">
+      <span className="page-title__text">
+        <span className="page-title__highlight">
+          Edit{" "}
+        </span>
+        <span>
+          your post{" "}
+        </span>
+      </span>
+    </div>
     <form className="music-form" onSubmit={handleSubmit}>
-      <Input
-        id="rating"
-        type="text"
-        label="Rating"
-        element="input"
-        onInput={handleInput}
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Enter valid rating!"
-        initValue={musicToUpdate.rating}
-        initValid={true}
-      />
+      <div className="update-track">
+        <div className="update-track__image">
+          <img src={musicToUpdate.image} alt={musicToUpdate.title} />
+        </div>
+        <div className="update-track__info">
+          <Input
+            id="title"
+            type="text"
+            label="Title"
+            element="input"
+            onInput={null}
+            initValue={musicToUpdate.title}
+            disabled={true}
+          />
+          <Input
+            id="artist"
+            type="text"
+            label="Artist"
+            element="input"
+            onInput={null}
+            initValue={musicToUpdate.artist}
+            disabled={true}
+          />
+          <div className="rating-block">
+            <p className="rating-label">Rating</p>
+            <Rating name="half-rating" defaultValue={musicToUpdate.rating} precision={0.5}
+              onChange={(event, newValue) => {
+                handleInput('rating', newValue, true)
+              }} />
+          </div>
+        </div>
+      </div>
       <Input
         id="description"
         type="text"
         label="Description"
         onInput={handleInput}
-        validators={[VALIDATOR_MINLENGTH]}
+        validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Enter valid description!"
         initValue={musicToUpdate.description}
         initValid={true}

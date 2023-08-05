@@ -51,7 +51,8 @@ const MusicItemActions = ({ item, handleShowComments }) => {
             payload: state.musicPosts.filter(m => m.id !== item.id || !m.respinId)
           })
         } else {
-          const post = state.musicPosts.find(m => m.id === item.id)
+          const post =
+            state.musicPosts.find(m => m.id === item.id) || state.likedPosts.find(m => m.id === item.id)
           const respinPost = {
             ...post,
             comments: JSON.parse(JSON.stringify(post.comments)),
@@ -87,6 +88,7 @@ const MusicItemActions = ({ item, handleShowComments }) => {
       { Authorization: `bearer ${auth.token}` })
 
     const userMusicCopy = [...state.musicPosts]
+    let userLikesCopy = [...state.likedPosts]
     if (response) {
       if (isLiked) {
         userMusicCopy.forEach(post => {
@@ -94,17 +96,29 @@ const MusicItemActions = ({ item, handleShowComments }) => {
             post.likes = post.likes.filter(user => user["id"] !== auth.userId)
           }
         })
+        userLikesCopy = userLikesCopy.filter(post => post.id !== item.id)
+
       } else {
         userMusicCopy.forEach(post => post.id === item.id && post.likes.unshift({
           id: auth.userId,
           name: auth.username,
           image: auth.image
         }))
+        /*itemCopy.likes.unshift({
+          id: auth.userId,
+          name: auth.username,
+          image: auth.image
+        }) */
+        userLikesCopy.unshift(item)
       }
       console.log(userMusicCopy)
       dispatch({
         type: "CHANGE_MUSICPOSTS",
         payload: userMusicCopy
+      })
+      dispatch({
+        type: "CHANGE_LIKEDPOSTS",
+        payload: userLikesCopy
       })
       setIsLiked(current => !current)
     }

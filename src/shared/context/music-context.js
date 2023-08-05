@@ -7,6 +7,11 @@ const musicReducer = (state, action) => {
         ...state,
         musicPosts: action.payload
       }
+    case "CHANGE_LIKEDPOSTS":
+      return {
+        ...state,
+        likedPosts: action.payload
+      }
     case "CHANGE_USERRESPINS":
       return {
         ...state,
@@ -29,6 +34,7 @@ const musicReducer = (state, action) => {
 
 const initialState = {
   musicPosts: [],
+  likedPosts: [],
   userRespins: [],
   user: {
     username: '',

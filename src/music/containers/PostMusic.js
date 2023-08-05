@@ -13,7 +13,7 @@ import { useForm } from '../../shared/hooks/form'
 import { useAxios } from '../../shared/hooks/http'
 import { useDebounce } from '../../shared/hooks/debounce'
 import { UserContext } from '../../shared/context/user-context'
-import './MusicForm.css'
+import './UpdateMusic.css'
 
 const PostMusic = () => {
   const auth = useContext(UserContext)
@@ -100,6 +100,13 @@ const PostMusic = () => {
 
   return <>
     <ErrorModal error={error} onClear={resetError} />
+    <div className="page-title">
+      <span className="page-title__text">
+        <span className="page-title__highlight">
+          Post music!
+        </span>
+      </span>
+    </div>
     <form className="music-form" onSubmit={handleSubmit}>
       {isLoading && <Loading asOverlay />}
       <div className="music-form__details">

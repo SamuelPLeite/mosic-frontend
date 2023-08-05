@@ -1,0 +1,23 @@
+.update-track {
+  display: flex;
+}
+
+.update-track__image {
+  display: flex;
+  width: 40%;
+  aspect-ratio: 1/1;
+  margin-right: 3%;
+  flex-shrink: 0;
+}
+
+.update-track__image img {
+  width: 100%;
+  align-self: center;
+  border: 2px solid #ccc;
+}
+
+.update-track__info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}

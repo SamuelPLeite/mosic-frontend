@@ -96,6 +96,7 @@ const MusicItem = ({ item }) => {
             labels={["Edit post"]}
             links={[`/music/${item.id}`]}
             onDelete={handleShowDelete}
+            uid={item.creatorId.id}
           />
         </div>
         {item.likes.length > 0 && <LikesDisplay likes={item.likes} />}

@@ -8,11 +8,14 @@ import PageTitle from "../../shared/components/UIElements/PageTitle"
 import { useAxios } from "../../shared/hooks/http"
 import { UserContext } from "../../shared/context/user-context"
 import './UserMusic.css'
+import UserMusicBar from "../components/UserMusicBar"
 
 const UserMusic = () => {
   const auth = useContext(UserContext)
   const [state, dispatch] = useContext(MusicContext)
   const [loadedMusic, setLoadedMusic] = useState(false)
+  const [isDisplayLiked, setIsDisplayLiked] = useState(false)
+
   const { isLoading, sendReq } = useAxios()
 
   const uid = useParams().uid
@@ -22,11 +25,12 @@ const UserMusic = () => {
       type: "CHANGE_UID",
       payload: uid
     })
+    setLoadedMusic(false)
+    setIsDisplayLiked(false)
   }, [dispatch, uid])
 
   useEffect(() => {
     const getUserMusic = async () => {
-      setLoadedMusic(false)
       const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/user/${uid}`)
       if (response) {
         dispatch({
@@ -43,7 +47,17 @@ const UserMusic = () => {
         setLoadedMusic(true) // ALERT ALERT ALERT ALERT (REAL ALERT)
       }
     }
+    const getUserLikedPosts = async () => {
+      const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/user/likes/${uid}`)
+      if (response) {
+        dispatch({
+          type: "CHANGE_LIKEDPOSTS",
+          payload: response.userMusic.postsLiked
+        })
+      }
+    }
     getUserMusic()
+    getUserLikedPosts()
   }, [sendReq, uid, dispatch])
 
   useEffect(() => {
@@ -63,16 +77,21 @@ const UserMusic = () => {
       getUserRespins()
   }, [auth.isLoggedIn, auth.token, sendReq, uid, dispatch])
 
+  const handleSwitchDisplay = (mode) => {
+    setIsDisplayLiked(mode)
+  }
+
   return <>
     {(isLoading || !loadedMusic) ?
       <div className="center"><Loading asOverlay /></div> :
       <div className="page-container">
         <PageTitle text={state.user.username + "'s"} image={state.user.image} isUser={true} />
+        <UserMusicBar handleSwitch={handleSwitchDisplay} />
         <MusicList
-          music={state.musicPosts}
+          music={isDisplayLiked ? state.likedPosts : state.musicPosts}
           respins={state.userRespins}
         />
-      </div>
+      </div >
     }
   </>
 }

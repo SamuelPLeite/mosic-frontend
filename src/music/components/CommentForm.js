@@ -41,20 +41,35 @@ const CommentForm = ({ postId }) => {
     })
 
     const creatorId = {
-      _id: auth.userId,
+      id: auth.userId,
       name: auth.username,
       image: auth.image
     }
 
     if (response) {
-      const { creator, id, ...rest } = response.comment
-      const newComment = { _id: id, ...rest, creatorId }
+      console.log(response)
+      const { creator, ...rest } = response.comment
+      const newComment = { ...rest, creatorId }
+      console.log(newComment)
+
       const userMusicCopy = [...state.musicPosts]
+      const userLikesCopy = [...state.likedPosts]
+
       userMusicCopy.forEach(post => post.id === newComment.musicPost && post.comments.unshift(newComment))
+      const postWithComment = userLikesCopy.find(post => post.id === newComment.musicPost)
+      if (postWithComment)
+        postWithComment.comments.unshift(newComment)
+
       dispatch({
         type: "CHANGE_MUSICPOSTS",
         payload: userMusicCopy
       })
+      dispatch({
+        type: "CHANGE_LIKEDPOSTS",
+        payload: userLikesCopy
+      })
+
+
       if (inputRef.current) {
         inputRef.current.resetInput();
       }

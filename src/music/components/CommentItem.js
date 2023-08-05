@@ -28,18 +28,28 @@ const CommentItem = ({ item }) => {
 
   const handleDeleteComment = async () => {
     setShowDelete(false)
-    const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/comment/${item._id}`, 'delete', {},
+    const response = await sendReq(`${process.env.REACT_APP_BACKEND_URL}api/music/comment/${item.id}`, 'delete', {},
       { Authorization: `bearer ${auth.token}` })
     if (response) {
       const userMusicCopy = [...state.musicPosts]
+      const userLikesCopy = [...state.likedPosts]
+
       userMusicCopy.forEach(post => {
         if (post.id === item.musicPost) {
-          post.comments = post.comments.filter(cmnt => cmnt._id !== item._id)
+          post.comments = post.comments.filter(cmnt => cmnt.id !== item.id)
         }
       })
+      const postWithComment = userLikesCopy.find(post => post.id === item.musicPost)
+      if (postWithComment)
+        postWithComment.comments = postWithComment.comments.filter(cmnt => cmnt.id !== item.id)
+
       dispatch({
         type: "CHANGE_MUSICPOSTS",
         payload: userMusicCopy
+      })
+      dispatch({
+        type: "CHANGE_LIKEDPOSTS",
+        payload: userLikesCopy
       })
       console.log(response)
     }
@@ -66,7 +76,7 @@ const CommentItem = ({ item }) => {
           <span>{item.creatorId.name}:</span>
         </Link>
         {auth.userId === item.creatorId.id &&
-          <DotMenu onDelete={handleShowDelete} />}
+          <DotMenu onDelete={handleShowDelete} uid={item.creatorId.id} />}
       </div>
       <span className="comment-item__content">{item.content}</span>
 

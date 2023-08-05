@@ -1,27 +1,53 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import ErrorModal from './ErrorModal';
+import { UserContext } from '../../context/user-context';
 
 import './DotMenu.css'
 
-export default function DotMenu({ labels, links, onDelete }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+export default function DotMenu({ labels, links, onDelete, uid }) {
+  const auth = useContext(UserContext)
+  const navigate = useNavigate()
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [error, setError] = useState(null)
+
+  const open = Boolean(anchorEl)
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleDelete = () => {
-    handleClose()
-    onDelete()
+    setAnchorEl(event.currentTarget)
   }
 
-  return (
+  const handleClose = () => {
+    setAnchorEl(null);
+  }
+
+  const handleDelete = () => {
+    handleClose()
+    if (auth.userId !== uid)
+      setError("You are not allowed to delete this post!")
+    else
+      onDelete()
+  }
+
+  const resetError = () => {
+    setError(null)
+  }
+
+  const handleEdit = () => {
+    handleClose()
+    console.log(auth.userId, uid)
+    if (auth.userId !== uid) {
+      setError("You are not allowed to edit this post!")
+    } else {
+      navigate(links[0])
+    }
+  }
+
+  return (<>
+    <ErrorModal error={error} onClear={resetError} />
     <div className="more-menu">
       <IconButton
         aria-label="more"
@@ -54,8 +80,7 @@ export default function DotMenu({ labels, links, onDelete }) {
           <MenuItem
             key={index}
             sx={{ fontFamily: 'inherit' }}
-            component={Link}
-            to={links[index]}
+            onClick={handleEdit}  // currently only handling edit
           >
             {label}
           </MenuItem>
@@ -66,5 +91,6 @@ export default function DotMenu({ labels, links, onDelete }) {
           onClick={handleDelete}>Delete post</MenuItem>}
       </Menu>
     </div>
+  </>
   );
 }
