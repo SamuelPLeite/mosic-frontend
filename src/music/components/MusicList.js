@@ -1,26 +1,28 @@
-import React from "react"
+import React, { forwardRef } from "react"
 
-import Card from "../../shared/components/UIElements/Card"
+import { RespinSymbol } from "./Icons"
 import MusicItem from "./MusicItem"
 import './MusicList.css'
 
-const MusicList = ({ music }) => {
+const MusicList = forwardRef(({ music }, ref) => {
   if (music.length === 0)
     return (
-      <div className="music-list center">
-        <Card>
-          <h2>No music here!</h2>
-        </Card>
+      <div ref={ref} className="music-list center">
+        <h2 className="music-list__empty">
+          <RespinSymbol />
+          No posts... yet!
+        </h2>
       </div>
     )
 
-  return <ul className="music-list">
+  return <ul ref={ref} className="music-list">
     {music.map(item =>
       <MusicItem
         key={item.respinId ? item.respinId : item.id}
         item={item}
       />)}
   </ul>
-}
+})
+
 
 export default MusicList

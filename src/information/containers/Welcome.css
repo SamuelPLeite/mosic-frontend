@@ -20,7 +20,6 @@
     -8px -8px 23px #22305d;
   z-index: 1;
   overflow-y: scroll;
-  /* Enable vertical scroll */
   overflow-x: hidden;
 }
 
@@ -333,14 +332,15 @@ the CSSTransition animation, so it (mostly) matches the Header */
 }
 
 .slide-up-enter {
-  transform: translateY(-10rem);
-  opacity: 0;
+  --translate-y2: calc((100vh - 5rem)*-1);
+  transform: translateY(var(--translate-y2));
+  opacity: 1;
 }
 
 .slide-up-enter-active {
   transform: translateY(0);
   opacity: 1;
-  transition: all 200ms;
+  transition: all 500ms;
 }
 
 .slide-up-exit {

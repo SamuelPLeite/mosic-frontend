@@ -1,3 +1,24 @@
+.slide-left-right-enter {
+  transform: translateX(-100%);
+}
+
+.slide-left-right-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 250ms;
+}
+
+.slide-left-right-exit {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.slide-left-right-exit-active {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 250ms;
+}
+
 @media (min-width: 768px) {
   .page-container {
     padding-top: 1rem;

@@ -68,7 +68,7 @@ const Welcome = () => {
               </div>
             </div>
           </div>
-          <div id="p1" className="welcome-page__text">
+          <div id="p3" className="welcome-page__text">
             <span className="welcome-page-p1__highlight">
               Concluding...<br />
             </span>

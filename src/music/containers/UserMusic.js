@@ -1,5 +1,6 @@
-import React, { useEffect, useContext, useState } from "react"
+import React, { useEffect, useContext, useState, useRef } from "react"
 import { useParams } from "react-router-dom"
+import { CSSTransition } from "react-transition-group"
 
 import MusicList from "../components/MusicList"
 import Loading from "../../shared/components/UIElements/Loading"
@@ -15,8 +16,10 @@ const UserMusic = () => {
   const [state, dispatch] = useContext(MusicContext)
   const [loadedMusic, setLoadedMusic] = useState(false)
   const [isDisplayLiked, setIsDisplayLiked] = useState(false)
+  const [isDisplayList, setIsDisplayList] = useState(true)
 
   const { isLoading, sendReq } = useAxios()
+  const nodeRef = useRef(null)
 
   const uid = useParams().uid
 
@@ -78,19 +81,30 @@ const UserMusic = () => {
   }, [auth.isLoggedIn, auth.token, sendReq, uid, dispatch])
 
   const handleSwitchDisplay = (mode) => {
+    setIsDisplayList(false)
     setIsDisplayLiked(mode)
+    setTimeout(() => {
+      setIsDisplayList(true)
+    }, 5)
   }
 
   return <>
     {(isLoading || !loadedMusic) ?
       <div className="center"><Loading asOverlay /></div> :
       <div className="page-container">
-        <PageTitle text={state.user.username + "'s"} image={state.user.image} isUser={true} />
+        <PageTitle text={state.user.username + "'s"} image={state.user.image} isUser={true} liked={isDisplayLiked} />
         <UserMusicBar handleSwitch={handleSwitchDisplay} />
-        <MusicList
-          music={isDisplayLiked ? state.likedPosts : state.musicPosts}
-          respins={state.userRespins}
-        />
+        <CSSTransition
+          nodeRef={nodeRef}
+          in={isDisplayList}
+          timeout={300}
+          classNames="slide-left-right">
+          <MusicList
+            music={isDisplayLiked ? state.likedPosts : state.musicPosts}
+            respins={state.userRespins}
+            ref={nodeRef}
+          />
+        </CSSTransition>
       </div >
     }
   </>

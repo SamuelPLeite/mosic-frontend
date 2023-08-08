@@ -101,7 +101,7 @@ const Auth = () => {
             errorText="Enter valid username!"
           />}
         {isSignup && <ImageUp center id="image"
-          onInput={handleInput} errorText="Please, do provide an image..!" />}
+          onInput={handleInput} />}
         <Input
           id="email"
           type="text"

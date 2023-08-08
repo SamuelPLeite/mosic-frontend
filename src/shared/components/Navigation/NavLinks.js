@@ -17,6 +17,9 @@ const NavLinks = () => {
     {auth.isLoggedIn && <li>
       <NavLink to="/music/new"><span>Post music!</span></NavLink>
     </li>}
+    <li>
+      <NavLink to="/about" ><span>About the Dev</span></NavLink>
+    </li>
     {!auth.isLoggedIn && <li>
       <NavLink to="/login"><span>Log In</span></NavLink>
     </li>}

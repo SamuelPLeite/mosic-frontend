@@ -5,3 +5,18 @@
   width: 90%;
   max-width: 40rem;
 }
+
+.music-list__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgba(0, 8, 24, 0.9);
+}
+
+.music-list__empty svg {
+  fill: none;
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 2rem;
+  stroke: rgba(0, 8, 24, 0.9);
+}

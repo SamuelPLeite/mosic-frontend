@@ -8,6 +8,7 @@ import PostMusic from './music/containers/PostMusic';
 import UserMusic from './music/containers/UserMusic';
 import UpdateMusic from './music/containers/UpdateMusic';
 import SearchMusic from './music/containers/SearchMusic';
+import AboutDev from './information/containers/AboutDev';
 import Auth from './users/containers/Auth';
 import { MusicContextProvider } from './shared/context/music-context';
 import { UserContext } from './shared/context/user-context';
@@ -19,7 +20,7 @@ const App = () => {
 
   const shouldDisplayHeaderFooter = () => {
     const pathWithoutSlash = location.pathname.replace(/^\/|\/$/g, '')
-    return pathWithoutSlash !== ''
+    return (pathWithoutSlash !== '' && pathWithoutSlash !== 'about')
   }
 
   let routes
@@ -31,8 +32,9 @@ const App = () => {
       <Route path="/music/search" element={<MusicContextProvider><SearchMusic /></MusicContextProvider>} />
       <Route path="/music/:mId" element={<UpdateMusic />} />
       <Route path="/users" element={<Users />} />
+      <Route path="/about" element={<AboutDev />} />
       <Route path="/" element={<Welcome />} />
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/users" />} />
     </>
   } else {
     routes = <>
@@ -40,6 +42,7 @@ const App = () => {
       <Route path="/music/search" element={<MusicContextProvider><SearchMusic /></MusicContextProvider>} />
       <Route path="/login" element={<Auth />} />
       <Route path="/users" element={<Users />} />
+      <Route path="/about" element={<AboutDev />} />
       <Route path="/" element={<Welcome />} />
       <Route path="*" element={<Navigate to="/login" />} />
     </>

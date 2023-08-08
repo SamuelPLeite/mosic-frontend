@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useRef } from "react"
 import Rating from '@mui/material/Rating'
 import { Link } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
@@ -30,6 +30,7 @@ const MusicItem = ({ item }) => {
   const [isPlaying, setIsPlaying] = useState(false)
 
   const { isLoading, error, sendReq, resetError } = useAxios()
+  const nodeRef = useRef(null)
 
   const handleShowDelete = () => {
     setShowDelete(true)
@@ -106,12 +107,14 @@ const MusicItem = ({ item }) => {
         <MusicItemActions item={item} handleShowComments={handleShowComments} />
       </Card>
       <CSSTransition
+        nodeRef={nodeRef}
         in={showComments}
         timeout={250}
         classNames="slide-down"
         mountOnEnter
         unmountOnExit>
         <CommentList
+          ref={nodeRef}
           comments={item.comments}
           postId={item.id}
         />

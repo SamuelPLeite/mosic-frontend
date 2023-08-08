@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { forwardRef } from 'react'
 
-import './Card.css';
+import './Card.css'
 
-const Card = props => {
+const Card = forwardRef((props, ref) => {
   return (
-    <div className={`card ${props.className}`} style={props.style}>
+    <div ref={ref} className={`card ${props.className}`} style={props.style}>
       {props.children}
     </div>
-  );
-};
+  )
+})
 
-export default Card;
+export default Card

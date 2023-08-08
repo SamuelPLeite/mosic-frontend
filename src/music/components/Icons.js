@@ -301,6 +301,10 @@ export const RespinSymbol = () => {
           <stop offset="10%" stopColor="#00d2ff" />
           <stop offset="90%" stopColor="#a858ff" />
         </linearGradient>
+        <linearGradient id="grad3">
+          <stop offset="10%" stopColor="rgb(102, 254, 142)" />
+          <stop offset="90%" stopColor="rgb(57, 189, 255)" />
+        </linearGradient>
         <circle cx={12} cy={12} r={3} stroke="inherit" strokeWidth={1.5} />
         <path
           d="M7.404 16.597a6.5 6.5 0 010-9.193m9.192 0a6.47 6.47 0 011.827 3.597m-1.827 5.596A6.496 6.496 0 0017.768 15"

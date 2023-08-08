@@ -3,7 +3,7 @@ import React from "react"
 import vinylImg from '../../../images/vinyl.png'
 import './PageTitle.css'
 
-const PageTitle = ({ image, text, isUser }) => {
+const PageTitle = ({ image, text, isUser, liked }) => {
   const imageUrl = image && (image.includes("uploads/images") ?
     process.env.REACT_APP_BACKEND_URL + image : image)
 
@@ -17,7 +17,7 @@ const PageTitle = ({ image, text, isUser }) => {
         <span className="page-title__highlight">
           {text}
         </span>
-        <span> posts</span>
+        <span>{liked && " liked "} posts</span>
       </span>
     </div>
   )
