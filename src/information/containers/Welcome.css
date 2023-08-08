@@ -374,13 +374,17 @@ the CSSTransition animation, so it (mostly) matches the Header */
     font-size: 3rem;
   }
 
+  .welcome-page-title__text .stage1 {
+    background-image: none;
+  }
+
   .welcome-page-title svg {
     width: 5rem;
     height: 5rem;
   }
 
   .welcome-page-title2 {
-    --translate-x: calc((50vw - 78px - 0.5rem) * -1);
+    --translate-x: calc((50vw - 78px - 1rem) * -1);
     --translate-y: calc(50vh - 24px - 1.5rem);
     transform: translate(var(--translate-x), var(--translate-y));
     font-size: 2rem;
@@ -403,6 +407,7 @@ the CSSTransition animation, so it (mostly) matches the Header */
     width: 11rem;
     height: 4rem;
     margin: 1rem;
+    position: fixed;
     border-radius: 15px;
     background: linear-gradient(145deg, #192344, #1e2a51);
     box-shadow: 5px 5px 10px #182141,

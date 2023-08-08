@@ -20,9 +20,7 @@ const Users = () => {
 
   return <>
     <ErrorModal error={error} onClear={resetError} />
-    {isLoading && <div className="center">
-      <Loading />
-    </div>}
+    {isLoading && <Loading asOverlay />}
     {!isLoading && users && <UsersList users={users} />}
   </>
 }

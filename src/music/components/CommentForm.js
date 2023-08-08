@@ -47,10 +47,8 @@ const CommentForm = ({ postId }) => {
     }
 
     if (response) {
-      console.log(response)
       const { creator, ...rest } = response.comment
       const newComment = { ...rest, creatorId }
-      console.log(newComment)
 
       const userMusicCopy = [...state.musicPosts]
       const userLikesCopy = [...state.likedPosts]

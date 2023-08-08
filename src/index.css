@@ -18,6 +18,10 @@ body {
   /* background-image: linear-gradient(62deg, #8EC5FC 0%, #c2ffe2 100%); */
 }
 
+main {
+  min-height: calc(100vh - 5rem)
+}
+
 .test-wave {
   position: fixed;
   left: 0;

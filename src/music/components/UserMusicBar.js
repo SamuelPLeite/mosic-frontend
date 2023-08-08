@@ -9,13 +9,17 @@ import './UserMusicBar.css'
 const UserMusicBar = ({ handleSwitch }) => {
   const [isDisplayLiked, setIsDisplayLiked] = useState(false)
   const handleSwitchPosts = () => {
-    handleSwitch(false)
-    setIsDisplayLiked(false)
+    if (isDisplayLiked) {
+      handleSwitch(false)
+      setIsDisplayLiked(false)
+    }
   }
 
   const handleSwitchLikes = () => {
-    handleSwitch(true)
-    setIsDisplayLiked(true)
+    if (!isDisplayLiked) {
+      handleSwitch(true)
+      setIsDisplayLiked(true)
+    }
   }
 
   return (

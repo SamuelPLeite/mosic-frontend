@@ -55,7 +55,6 @@ const PostMusic = () => {
     })
 
     const response = responseFull.data
-    console.log(response)
     if (Object.keys(response).length !== 0) {
       if (isSong)
         setImageUrl(response.data.album.cover_big)
@@ -95,7 +94,7 @@ const PostMusic = () => {
     })
 
     if (response)
-      navigate('/')
+      navigate(`/users/${auth.userId}/music`)
   }
 
   return <>

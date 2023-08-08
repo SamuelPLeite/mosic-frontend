@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { CSSTransition } from 'react-transition-group'
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,9 @@ const Welcome = () => {
   const [isExit, setIsExit] = useState(false)
   const navigate = useNavigate()
 
+  const nodeRef = useRef(null)
+  const node2Ref = useRef(null)
+
   const handleStageChange = () => {
     setStage(current => current === 0 ? 1 : 0)
   }
@@ -23,10 +26,10 @@ const Welcome = () => {
     }, 500);
   }
 
-  return (<CSSTransition in={!isExit} timeout={550} mountOnEnter unmountOnExit classNames="slide-up">
-    <div className="welcome-page">
-      <CSSTransition in={stage === 1} timeout={250} mountOnEnter unmountOnExit classNames="modal">
-        <Card className="welcome-page__content">
+  return (<CSSTransition nodeRef={nodeRef} in={!isExit} timeout={550} mountOnEnter unmountOnExit classNames="slide-up">
+    <div ref={nodeRef} className="welcome-page">
+      <CSSTransition nodeRef={node2Ref} in={stage === 1} timeout={250} mountOnEnter unmountOnExit classNames="modal">
+        <Card ref={node2Ref} className="welcome-page__content">
           <div id="p1" className="welcome-page__text">
             <span className="welcome-page-p1__highlight">
               So, what is Mosic?<br />
@@ -85,7 +88,7 @@ const Welcome = () => {
         </div>
         <span className="welcome-page-title__text">
           {stage === 0 && <span>Welcome to </span>}
-          <span className="welcome-page-title__highlight">
+          <span className={`welcome-page-title__highlight ${stage === 1 ? "stage1" : ''}`}>
             Mosic
           </span>
         </span>

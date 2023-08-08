@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation, Routes, Route, Navigate } from 'react-router-dom';
 
 import MainNavigation from './shared/components/Navigation/MainNavigation';
+import Footer from './shared/components/UIElements/Footer';
 import Welcome from './information/containers/Welcome';
 import Users from "./users/containers/Users"
 import PostMusic from './music/containers/PostMusic';
@@ -66,6 +67,7 @@ const App = () => {
           {routes}
         </Routes>
       </main>
+      {shouldDisplayHeaderFooter() && <Footer />}
     </UserContext.Provider>
   )
 }

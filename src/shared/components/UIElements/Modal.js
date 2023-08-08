@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useRef, forwardRef } from 'react'
 import ReactDOM from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
 
 import Backdrop from './Backdrop'
 import './Modal.css'
 
-const ModalOL = (props) => {
-  const content = <div className={`modal ${props.className}`} style={props.style}>
+const ModalOL = forwardRef((props, ref) => {
+  const content = <div ref={ref} className={`modal ${props.className}`} style={props.style}>
     <header className={`modal__header ${props.headerClass}`}>
       <h2>{props.header}</h2>
     </header>
@@ -21,13 +21,21 @@ const ModalOL = (props) => {
   </div>
 
   return ReactDOM.createPortal(content, document.getElementById('modal'))
-}
+})
 
 const Modal = (props) => {
+  const nodeRef = useRef(null)
+
   return <>
     {props.show && <Backdrop onClick={props.onCancel} />}
-    <CSSTransition in={props.show} timeout={250} mountOnEnter unmountOnExit classNames="modal">
-      <ModalOL {...props} />
+    <CSSTransition
+      nodeRef={nodeRef}
+      in={props.show}
+      timeout={250}
+      mountOnEnter
+      unmountOnExit
+      classNames="modal">
+      <ModalOL ref={nodeRef} {...props} />
     </CSSTransition>
   </>
 }

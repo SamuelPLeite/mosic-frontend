@@ -62,8 +62,6 @@ const Auth = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    console.log(formState.inputs)
-
     let response
     if (isSignup) {
       const formData = new FormData()

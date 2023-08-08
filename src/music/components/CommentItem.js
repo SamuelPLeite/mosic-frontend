@@ -51,7 +51,6 @@ const CommentItem = ({ item }) => {
         type: "CHANGE_LIKEDPOSTS",
         payload: userLikesCopy
       })
-      console.log(response)
     }
   }
 

@@ -38,7 +38,6 @@ export default function DotMenu({ labels, links, onDelete, uid }) {
 
   const handleEdit = () => {
     handleClose()
-    console.log(auth.userId, uid)
     if (auth.userId !== uid) {
       setError("You are not allowed to edit this post!")
     } else {

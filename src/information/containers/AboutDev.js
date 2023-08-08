@@ -21,7 +21,6 @@ import mongodbLogo from "../../images/mongodb_logo.png"
 import linkedinLogo from "../../images/linkedin_logo.png"
 import githubLogo from "../../images/github-mark.png"
 
-
 import './AboutDev.css'
 
 const AboutDev = () => {
@@ -220,7 +219,7 @@ const AboutDev = () => {
               Thank you for joining me on this journey through my experiences and projects. I'm always open to conversations, collaborations, and feedback. Feel free to connect through the provided contact information. Let's explore new horizons together.
             </span>
             <div className="about-page__text-links">
-              <Link to="https://github.com/SamuelPLeite?tab=repositories" target="_blank">
+              <Link to="https://github.com/SamuelPLeite" target="_blank">
                 <img src={githubLogo} alt="github_logo" />
               </Link>
               <Link to="https://www.linkedin.com/in/samuel-henrique-pires-leite-30b442254/" target="_blank">

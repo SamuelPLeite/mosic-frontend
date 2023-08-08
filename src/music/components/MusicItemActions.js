@@ -56,6 +56,7 @@ const MusicItemActions = ({ item, handleShowComments }) => {
           const respinPost = {
             ...post,
             comments: JSON.parse(JSON.stringify(post.comments)),
+            likes: JSON.parse(JSON.stringify(post.likes)),
             respinId: response.music.respinId
           }
           dispatch({
@@ -109,17 +110,19 @@ const MusicItemActions = ({ item, handleShowComments }) => {
           name: auth.username,
           image: auth.image
         }) */
-        userLikesCopy.unshift(item)
+        const itemCopy = (({ respinId, ...rest }) => JSON.parse(JSON.stringify(rest)))(item)
+        userLikesCopy.unshift(itemCopy)
       }
-      console.log(userMusicCopy)
       dispatch({
         type: "CHANGE_MUSICPOSTS",
         payload: userMusicCopy
       })
-      dispatch({
-        type: "CHANGE_LIKEDPOSTS",
-        payload: userLikesCopy
-      })
+      if (state.uid === auth.userId) {
+        dispatch({
+          type: "CHANGE_LIKEDPOSTS",
+          payload: userLikesCopy
+        })
+      }
       setIsLiked(current => !current)
     }
   }

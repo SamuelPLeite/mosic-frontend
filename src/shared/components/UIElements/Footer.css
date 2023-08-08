@@ -1,0 +1,36 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.856);
+  width: 100%;
+  height: 6rem;
+  padding: 2rem;
+  margin-top: 3rem;
+  background: rgb(28, 39, 76);
+  position: relative;
+  z-index: 11;
+}
+
+.footer-text {
+  display: flex;
+  align-items: center;
+}
+
+.footer .about-page__text-links {
+  margin-top: 0;
+}
+
+.footer .about-page__text-links img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.footer span {
+  display: block;
+  border-radius: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 1rem;
+  background: white;
+}

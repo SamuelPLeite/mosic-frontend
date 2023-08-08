@@ -70,7 +70,7 @@ const SearchMusic = () => {
         }
       } else if (queryParams["album.title"]) {
         setTitleText(queryParams["album.title"])
-        setTitleImg(post.info.album.cover_medium)
+        post.isSong && setTitleImg(post.info.album.cover_medium) // 
       } else if (queryParams["record.type"]) {
         setTitleText(queryParams["record.type"])
         setTitleImg(post.info.artist.picture_medium)
@@ -81,7 +81,7 @@ const SearchMusic = () => {
         setTitleText('some')
       }
     }
-  }, [searchParams, state.musicPosts])
+  }, [searchParams, state.musicPosts, loadedMusic])
 
   return <>
     {(isLoading || !loadedMusic || !titleText) ?
