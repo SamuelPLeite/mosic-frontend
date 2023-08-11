@@ -1,37 +1,31 @@
 .likes {
-  display: flex;
-  align-items: center;
+  display: inline-block;
   border-radius: 5px;
   background: #ffffff91;
   padding: 5px;
   margin-top: 0.5rem;
   box-sizing: content-box;
-}
-
-.likes span {
-  height: 24px;
-}
-
-.likes__end {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
+.likes span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .likes svg {
-  margin-right: 5px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
 }
 
 .like-user {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
+  display: inline-block;
+  vertical-align: middle;
   text-decoration: none;
   color: #1C274C;
-  height: 30px;
   padding: 3px;
-  margin-right: 3px;
-  margin-left: 4px;
 }
 
 .like-user:hover {
@@ -40,9 +34,13 @@
 }
 
 .like-user__content {
-  display: flex;
-  height: 24px;
-  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  height: min-content;
+}
+
+.like-user__content span {
+  vertical-align: middle;
 }
 
 .like-user img {
@@ -51,6 +49,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 0.3rem;
+  vertical-align: middle;
 }
 
 @media (max-width: 768px) {

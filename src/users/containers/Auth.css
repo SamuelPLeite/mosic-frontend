@@ -4,24 +4,66 @@
 }
 
 .authentication {
+  display: flex;
+  flex-direction: column;
   width: 90%;
   max-width: 25rem;
-  margin: 7rem auto;
+  margin: 2rem auto;
   text-align: left;
+  background: #e9f5ff;
+  box-shadow: 12px 12px 33px #acbecd44,
+    -12px -12px 33px #acbecd44;
+  color: rgba(0, 8, 24, 0.9);
+}
+
+.authentication h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(0, 8, 24, 0.9);
+}
+
+.authentication input {
+  border-radius: 5px;
 }
 
 .authentication form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   margin-bottom: 1rem;
+  margin-top: 2rem;
 }
 
 .authentication button {
-  background: rgb(5, 49, 107);
+  align-self: center;
+}
+
+.authentication button {
+  background: rgb(28, 39, 76);
   border-color: rgb(4, 43, 95);
-  color: rgb(174, 250, 255)
+  color: rgb(197, 209, 226)
 }
 
 .authentication button:hover {
   background: rgb(53, 84, 124);
   border-color: rgb(57, 81, 112);
-  color: rgb(15, 45, 48)
+  color: rgb(11, 16, 48)
+}
+
+.icon-field {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.icon-field .form-control {
+  flex-grow: 1;
+  margin: 0;
+}
+
+.icon-field svg {
+  margin-right: 1.5rem;
 }

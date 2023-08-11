@@ -5,6 +5,7 @@ import Rating from '@mui/material/Rating'
 
 import Input from '../../shared/components/Form/Input'
 import Button from '../../shared/components/Form/Button'
+import Modal from '../../shared/components/UIElements/Modal'
 import ErrorModal from '../../shared/components/UIElements/ErrorModal'
 import Loading from '../../shared/components/UIElements/Loading'
 import TrackButton from '../components/TrackButton'
@@ -23,6 +24,8 @@ const PostMusic = () => {
   const [loadingImg, setLoadingImg] = useState(false)
   const [info, setInfo] = useState(null)
   const [isSong, setIsSong] = useState(true)
+  const [showConfirmPost, setShowConfirmPost] = useState(false)
+
 
   const [formState, handleInput] = useForm(
     {
@@ -62,8 +65,10 @@ const PostMusic = () => {
         setImageUrl(response.data.cover_big)
       setInfo(response.data)
     }
-    else
+    else {
       setImageUrl('')
+      setInfo(null)
+    }
 
     setLoadingImg(false)
   })
@@ -78,15 +83,48 @@ const PostMusic = () => {
     setIsSong(value)
   }
 
+  const handleShowConfirm = () => {
+    setShowConfirmPost(true)
+  }
+
+  const handleHideConfirm = () => {
+    setShowConfirmPost(false)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    const infoNOAPI = isSong ? {
+      title: formState.inputs.title.value,
+      duration: "0",
+      preview: "",
+      artist: {
+        name: formState.inputs.artist.value,
+        picture_medium: ""
+      },
+      album: {
+        title: formState.inputs.title.value,
+        cover_medium: ""
+      }
+    } : {
+      title: formState.inputs.title.value,
+      type: "album",
+      record_type: "album",
+      cover_medium: "",
+      nb_track: "n/a",
+      artist: {
+        name: formState.inputs.artist.value,
+        picture_medium: "",
+        picture_small: ""
+      }
+    }
 
     const response = await sendReq(process.env.REACT_APP_BACKEND_URL + 'api/music/', 'post', {
       title: formState.inputs.title.value,
       artist: formState.inputs.artist.value,
       rating: formState.inputs.rating.value,
       image: imageUrl,
-      info: info,
+      info: info || infoNOAPI,
       description: formState.inputs.description.value,
       isSong: isSong
     }, {
@@ -153,7 +191,22 @@ const PostMusic = () => {
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Enter valid description (5 characters minimum)!"
       />
-      <Button type="submit" disabled={!formState.isValid}>Post music!</Button>
+      <Modal
+        show={showConfirmPost}
+        header="Confirm posting?"
+        footer={<>
+          <Button type="submit">Post it</Button>
+          <Button inverse type="button" onClick={handleHideConfirm}>Cancel</Button>
+        </>}
+      >
+        <span>The album or song you're trying to post couldn't be found in our database. Do you still want to post it? Some features might not work.</span>
+      </Modal>
+      <Button
+        type={info ? "submit" : "button"}
+        onClick={info ? null : handleShowConfirm}
+        disabled={!formState.isValid}>
+        Post music!
+      </Button>
     </form>
   </>
 }

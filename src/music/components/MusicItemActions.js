@@ -135,7 +135,7 @@ const MusicItemActions = ({ item, handleShowComments }) => {
 
   return (<>
     {isLoading && <Loading asOverlay />}
-    <ErrorModal error={error} onClear={resetError} />
+    <ErrorModal error={error} onClear={resetError} isLogin />
     <ul className="music-item__actions">
       <li className="left"><Link onClick={handleRespin}>
         {!isRespun ? <RespinIcon /> : <RespinIconFilled />}</Link>

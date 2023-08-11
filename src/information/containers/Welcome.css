@@ -21,6 +21,8 @@
   z-index: 1;
   overflow-y: scroll;
   overflow-x: hidden;
+  scrollbar-color: rgb(28, 39, 76) #e0f2ff;
+  scrollbar-width: thin;
 }
 
 .welcome-page__text {
@@ -185,6 +187,7 @@
   background: linear-gradient(145deg, #192344, #1e2a51);
   box-shadow: 5px 5px 10px #182141,
     -5px -5px 10px #202d57;
+  animation: shakeWeak 0.5s linear 10s 40;
 }
 
 .welcome-page__enter span {
@@ -331,6 +334,20 @@ the CSSTransition animation, so it (mostly) matches the Header */
   }
 }
 
+@keyframes shakeWeak {
+  25% {
+    transform: rotate(3deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(-3deg);
+  }
+}
+
 .slide-up-enter {
   --translate-y2: calc((100vh - 5rem)*-1);
   transform: translateY(var(--translate-y2));
@@ -402,6 +419,7 @@ the CSSTransition animation, so it (mostly) matches the Header */
   .welcome-page-title__image::before {
     padding: 0.2rem;
   }
+
 
   .welcome-page__enter {
     width: 11rem;

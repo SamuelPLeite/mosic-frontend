@@ -52,6 +52,11 @@ const Input = ({ id, label, element, type, placeholder, rows, errorText, validat
     })
   }
 
+  // used to set data for test user
+  const setInput = (value) => {
+    dispatch({ type: "CHANGE", var: value, validators: validators })
+  }
+
   const resetInput = () => {
     dispatch({
       type: 'RESET'
@@ -60,6 +65,7 @@ const Input = ({ id, label, element, type, placeholder, rows, errorText, validat
 
   useImperativeHandle(ref, () => ({
     resetInput,
+    setInput
   }));
 
   const elementInput = element === 'input' ?

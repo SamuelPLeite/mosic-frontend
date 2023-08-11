@@ -1,0 +1,26 @@
+.post-date {
+  color: #79838b;
+  font-style: italic;
+  align-self: center;
+  margin-left: auto;
+}
+
+.post-date-bottom {
+  color: #79838b;
+  font-style: italic;
+  align-self: center;
+  margin: 1rem 0;
+
+}
+
+@media (max-width: 600px) {
+  .post-date {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .post-date-bottom {
+    display: none;
+  }
+}

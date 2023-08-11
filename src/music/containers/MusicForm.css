@@ -6,7 +6,10 @@
   max-width: 40rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 6px;
-  background: white;
+  background: #e9f5ff;
+  box-shadow: 12px 12px 33px #acbecd44,
+    -12px -12px 33px #acbecd44;
+  color: rgba(0, 8, 24, 0.9);
 }
 
 .music-form button {
@@ -20,6 +23,12 @@
 
 .music-form__details input {
   flex-grow: 1;
+  border-radius: 5px;
+}
+
+.music-form textarea {
+  border-radius: 5px;
+  resize: none;
 }
 
 .music-form__details-image {
@@ -27,6 +36,8 @@
   height: 234px;
   margin-right: 3%;
   border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #f7fcff;
   position: relative;
   display: flex;
   align-self: center;

@@ -34,7 +34,7 @@ const MainNavigation = () => {
           <span />
         </button>
         <h1 className="main-navigation__title">
-          <Link to="/">
+          <Link to="/users">
             <RespinSymbol />
             <span>Mosic</span>
           </Link>

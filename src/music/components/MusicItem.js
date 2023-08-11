@@ -10,6 +10,7 @@ import Button from "../../shared/components/Form/Button"
 import Loading from "../../shared/components/UIElements/Loading"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal"
 import CommentList from "./CommentList"
+import PostDate from "./PostDate"
 import DotMenu from "../../shared/components/UIElements/DotMenu"
 import LikesDisplay from "./LikesDisplay"
 import AudioPlayer from "./AudioPlayer"
@@ -77,14 +78,15 @@ const MusicItem = ({ item }) => {
           <img src={process.env.REACT_APP_BACKEND_URL + item.creatorId.image} alt={item.creatorId.name} />
           <span>{item.creatorId.name}</span>
         </Link>
+        <PostDate date={item.postDate} />
       </div>
       <Card className="music-item__content">
         {isLoading && <Loading asOverlay />}
         <div className="music-item__info">
           <div className="music-item__image">
-            <img src={item.image} alt={item.title} className="cover" />
+            {item.image && <img src={item.image} alt={item.title} className="cover" />}
             <img src={vinylImg} alt="" className={`vinyl ${isPlaying && 'vinyl__playing'}`} />
-            {item.info.preview &&
+            {item.info && item.info.preview &&
               <AudioPlayer audioUrl={item.info.preview} handlePlaying={setIsPlaying} />
             }
           </div>
@@ -119,6 +121,7 @@ const MusicItem = ({ item }) => {
           postId={item.id}
         />
       </CSSTransition>
+      <PostDate date={item.postDate} bottom />
     </li>
   </>
 }

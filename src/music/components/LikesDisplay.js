@@ -38,7 +38,6 @@ const LikesDisplay = ({ likes }) => {
     </>
   }
 
-
   return (
     <div className="likes">
       <LikeIconFilled />

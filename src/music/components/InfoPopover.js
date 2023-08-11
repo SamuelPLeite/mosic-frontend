@@ -79,7 +79,8 @@ const InfoPopover = ({ item }) => {
         }
         <Link to={baseUrl}>
           <span className="artist">
-            <b>Artist:</b> <img src={info.artist.picture_small} alt={info.artist.name} /> <span>{info.artist.name}</span><br />
+            <b>Artist:</b>
+            {info.artist.picture_small && <img src={info.artist.picture_small} alt={info.artist.name} />} <span>{info.artist.name}</span><br />
           </span>
         </Link>
 

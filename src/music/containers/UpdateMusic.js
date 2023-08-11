@@ -66,7 +66,7 @@ const UpdateMusic = () => {
   }
 
   if (isLoading) {
-    return <div className="center"><Loading /></div>
+    return <div className="center"><Loading asOverlay /></div>
   } else if (!musicToUpdate && !error) {
     return <div className="center"><h1>Invalid music ID.</h1></div>
   }

@@ -9,10 +9,10 @@ const NavLinks = () => {
 
   return <ul className="nav-links">
     <li>
-      <NavLink to="/users" end><span>List of Users</span></NavLink>
+      <NavLink to="/" end><span>Introduction</span></NavLink>
     </li>
     {auth.isLoggedIn && <li>
-      <NavLink to={`/users/${auth.userId}/music`}><span>My Music</span></NavLink>
+      <NavLink to={`/users/${auth.userId}/music`}><span>My Posts</span></NavLink>
     </li>}
     {auth.isLoggedIn && <li>
       <NavLink to="/music/new"><span>Post music!</span></NavLink>

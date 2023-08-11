@@ -9,6 +9,7 @@
   width: 13rem;
   height: 13rem;
   border: 1px solid #ccc;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,8 +1,9 @@
 import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useSearchParams } from "react-router-dom"
 
 export default function ScrollTop() {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     setTimeout(() => {
@@ -12,7 +13,7 @@ export default function ScrollTop() {
         behavior: "instant",
       })
     }, 0) // fixes flashing screen on scroll
-  }, [pathname])
+  }, [pathname, searchParams])
 
   return null
 }

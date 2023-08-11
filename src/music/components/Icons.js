@@ -283,6 +283,91 @@ export const PauseIcon = () => {
   )
 }
 
+export const PasswordIcon = (props) => {
+  return (
+    <SvgIcon>
+      <svg
+        width="800px"
+        height="800px"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <path
+          d="M9 16a1 1 0 11-2 0 1 1 0 012 0zM13 16a1 1 0 11-2 0 1 1 0 012 0zM17 16a1 1 0 11-2 0 1 1 0 012 0z"
+          fill="#1C274C"
+        />
+        <path
+          d="M6 10V8c0-.34.028-.675.083-1M18 10V8A6 6 0 007.5 4.031M11 22H8c-2.828 0-4.243 0-5.121-.879C2 20.243 2 18.828 2 16c0-2.828 0-4.243.879-5.121C3.757 10 5.172 10 8 10h8c2.828 0 4.243 0 5.121.879C22 11.757 22 13.172 22 16c0 2.828 0 4.243-.879 5.121C20.243 22 18.828 22 16 22h-1"
+          stroke="#1C274C"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+        />
+      </svg>
+    </SvgIcon>
+  )
+}
+
+export const AtIcon = (props) => {
+  return (
+    <SvgIcon>
+      <svg
+        width="800px"
+        height="800px"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <path
+          d="M12 18a6 6 0 115.64-3.946 1.54 1.54 0 01-.413.599l-.08.074a1.637 1.637 0 01-2.747-1.203V12m0 0a2.4 2.4 0 11-4.8 0 2.4 2.4 0 014.8 0z"
+          stroke="#1C274C"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+        />
+        <path
+          d="M7 3.338A9.954 9.954 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"
+          stroke="#1C274C"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+        />
+      </svg>
+    </SvgIcon>
+  )
+}
+
+export const UserIcon = (props) => {
+  return (
+    <SvgIcon>
+      <svg
+        width="800px"
+        height="800px"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <circle cx={12} cy={9} r={3} stroke="#1C274C" strokeWidth={1.5} />
+        <path
+          d="M17.97 20c-.16-2.892-1.045-5-5.97-5s-5.81 2.108-5.97 5"
+          stroke="#1C274C"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+        />
+        <path
+          d="M7 3.338A9.954 9.954 0 0112 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"
+          stroke="#1C274C"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+        />
+      </svg>
+    </SvgIcon>
+  )
+}
+
+
+
 export const RespinSymbol = () => {
   return (
     <SvgIcon>

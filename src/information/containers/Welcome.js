@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CSSTransition } from 'react-transition-group'
 import { useNavigate } from "react-router-dom";
 
@@ -58,7 +58,7 @@ const Welcome = () => {
                 <InfoIcon id="p2-info" />
               </div>
               <span>
-                Aligned with this vision, I've implemented a range of features that drive the essence of Mosic. The cornerstones, Users and Posts, form its foundation. Users can effortlessly sign up, granting them access to profile pages upon login. Posts are the canvas for musical expressions – a name and artist trigger the retrieval of corresponding music via DeezerAPI. The familiar
+                Aligned with this vision, I've implemented a range of features that drive the essence of Mosic. The cornerstones, Users and Posts, form its foundation. Users can effortlessly sign up, granting them access to profile pages, putting their posts and posts they liked on display. Posts are the canvas for musical expressions – a name and artist trigger the retrieval of corresponding music via DeezerAPI. The familiar
                 <HoverPopup tooltip={<LikeIcon />}>Like</HoverPopup> and
                 <HoverPopup tooltip={<CommentIcon />}>Comment</HoverPopup> functions are fully present, while
                 <HoverPopup tooltip={<RespinIcon />}>Respin</HoverPopup> serves as a counterpart to traditional sharing. User profiles weave connections through authored content and respins, while the
@@ -67,7 +67,9 @@ const Welcome = () => {
             </div>
             <div>
               <div>
-                The 'Info' feature serves a dual purpose: besides providing extra insights, it powers the 'Discover' pages: when users click on a track's title or artist's name, they're seamlessly directed to the corresponding 'Discover' page, unveiling related posts.The DeezerAPI, beyond sourcing data for music posts, plays a central role in our built-in music players embedded within each cover – offering a 30-second preview of tracks. This succinct overview encapsulates the current scope of Mosic's implemented features, offering a snapshot of its capabilities.
+                The 'Info' feature serves a dual purpose: besides providing extra insights, it powers the
+                <HoverPopup tooltip="Discover new posts about the same track or artist clicking one of the fields inside the Info popup.">'Discover' pages</HoverPopup>: when users click on a track's title or artist's name, they're seamlessly directed to the corresponding 'Discover' page, unveiling related posts.The DeezerAPI, beyond sourcing data for music posts, plays a central role in our
+                <HoverPopup tooltip="Listen to the preview of a track by hovering and clicking the artwork.">built-in music players</HoverPopup> embedded within each cover – offering a 30-second preview of tracks. This short overview encapsulates the current scope of Mosic's implemented features, offering a snapshot of its capabilities.
               </div>
             </div>
           </div>
